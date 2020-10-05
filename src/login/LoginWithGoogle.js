@@ -11,11 +11,12 @@ export function LoginWithGoogle() {
     function signup(res) {
 
         const googleResponse = {
-            Name: res.profileObj.name,
+            name: res.profileObj.givenName,
             email: res.profileObj.email,
-            token: res.googleId,
-            Image: res.profileObj.imageUrl,
-            ProviderId: 'Google'
+            googleIdToken: res.tokenObj.id_token,
+            accessToken: res.tokenObj.access_token,
+            scopes: res.getGrantedScopes(),
+            providerId: 'Google'
         };
 
         const url = "http://localhost:8080/api/v1/login/viaGoogle";
@@ -52,6 +53,9 @@ export function LoginWithGoogle() {
     return (
         <GoogleLogin
             clientId="845161221251-8qcjjnqm3a568p0m9alajv2kaa514jot.apps.googleusercontent.com"
+            discoveryDocs="https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"
+            scope="https://www.googleapis.com/auth/youtube.readonly"
+            accessType="offline"
             buttonText="Sign in with Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}/>

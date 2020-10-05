@@ -30,10 +30,6 @@ class LoginTraditionally extends Component {
 
     }
 
-    componentDidMount() {
-        localStorage.clear();
-    }
-
 
     handleChange = event => {
         event.preventDefault();
@@ -177,7 +173,6 @@ class LoginTraditionally extends Component {
                             id="login"
                             type="submit"
                             className="btn btn-outline-dark flex-center"
-                            //style={style.button}
                             onClick={this.handleClick}
                         >Login
                         </button>
@@ -189,7 +184,6 @@ class LoginTraditionally extends Component {
                             id="signUp"
                             type="submit"
                             className="btn btn-outline-info justify-content-center"
-                            //style={style.buttonSignUp}
                             onClick={this.handleRedirectionToRegistration}
                         >Sign up
                         </button>

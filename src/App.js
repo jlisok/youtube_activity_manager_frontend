@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
@@ -20,10 +19,10 @@ function App() {
                     <BrowserRouter>
                         <Switch>
                             <Route exact path="/" component={HomeWithLogin}/>
-                            <Route path="/login" component={HomeWithLogin}/>
-                            <Route path="/signUp" component={HomeWithRegistration}/>
-                            <Route path="/about" component={About}/>
-                            <Route path="/dashboard" component={Dashboard}/>
+                            <Route exact path="/login" component={HomeWithLogin}/>
+                            <Route exact path="/signUp" component={HomeWithRegistration}/>
+                            <Route exact path="/about" component={About}/>
+                            <Route exact path="/dashboard" component={Dashboard}/>
                             <Route component={OpsSomethingWentWrong}/>
                         </Switch>
                     </BrowserRouter>
