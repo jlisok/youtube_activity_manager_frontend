@@ -8,6 +8,12 @@ import {setDidBlur} from "../utils/setDidBlur";
 import {countErrors} from "../utils/countErrors";
 import {handleStylesChangeOnValidation} from "../utils/handleStylesChangeOnValidation";
 import {withRouter} from "react-router-dom";
+import {UserHttpResponse} from "../constants/UserHttpResponse";
+import {handleErrors} from "../utils/handleErrors";
+import {handleAuthentication} from "../authentication/handleAuthentication";
+import {RestApiUrl} from "../constants/RestApiUrl";
+import {Labels} from "../constants/Labels";
+import {Time} from "../constants/Time";
 
 
 class LoginTraditionally extends Component {
@@ -27,7 +33,6 @@ class LoginTraditionally extends Component {
             email: false,
             password: false
         },
-
     }
 
 
@@ -41,8 +46,8 @@ class LoginTraditionally extends Component {
     handleValidation = () => {
         let errors = this.state.errors;
         let state = this.state;
-        errors.email = !state.email ? "Email cannot be empty. Please enter correct email address." : "";
-        errors.password = !state.password ? "Password cannot be empty. Please enter correct password." : "";
+        errors.email = !state.email ? Labels.EMPTY_EMAIL : "";
+        errors.password = !state.password ? Labels.EMPTY_PASSWORD : "";
         return errors;
     }
 
@@ -52,9 +57,8 @@ class LoginTraditionally extends Component {
         const didBlur = setDidBlur(this.state.didBlur);
         const errors = this.handleValidation(this.state);
         const nElem = countErrors(errors);
-
         if (nElem > 0) {
-            errors.submitButton = "Some of required data are not filled. Please enter all fields before proceeding.";
+            errors.submitButton = Labels.FAILED_SUBMIT;
             this.setState({errors, didBlur})
         } else {
             errors.submitButton = "";
@@ -64,29 +68,18 @@ class LoginTraditionally extends Component {
 
 
     handleAuthentication = (errors, didBlur) => {
-        const url = "http://localhost:8080/api/v1/login";
         axios
-            .post(url, this.state)
+            .post(RestApiUrl.TRADITIONAL_LOGIN, this.state)
             .then(response => {
-                const token = response.data;
-                if (token !== null) {
-                    localStorage.setItem("token", response.data);
-                    localStorage.setItem("authenticated", "true");
-                    localStorage.setItem("authorized", "false"); // TODO: authorization granting from backend
+                if (response.data !== null) {
+                    handleAuthentication(response.data, true, false);
                 } else {
-                    errors.badRequest = "Ops, something went wrong with your authentication, try again."
+                    handleAuthentication(null, false, false);
+                    errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
                 }
             })
             .catch(error => {
-                let responseCode;
-                if (error.response.data.hasOwnProperty("responseCode")) {
-                    responseCode = error.response.data.responseCode;
-                }
-                if (responseCode === "LOGIN_FAILED_PARAMETERS_DO_NOT_MATCH_DATABASE") {
-                    errors.badRequest = "Login or password is incorrect. Please, try again."
-                } else {
-                    errors.badRequest = "Ops, something went wrong with your authentication, try again."
-                }
+                errors.badRequest = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
             })
             .finally(() => {
                     this.handleRedirectionToDashboard(errors, didBlur);
@@ -98,13 +91,12 @@ class LoginTraditionally extends Component {
     handleRedirectionToDashboard = (errors, didBlur) => {
         if (errors.badRequest.length > 0) {
             this.setState({errors, didBlur});
-            return;
-        }
-        if (localStorage.getItem("authenticated") === "true") {
-            this.props.history.push("/dashboard");
+            setTimeout(function () {
+                errors.badRequest = "";
+                this.setState({errors});
+            }.bind(this), Time.TIMEOUT);
         } else {
-            errors.badRequest = "Ops, something went wrong with your authentication, try again.";
-            this.setState({errors, didBlur});
+            this.props.history.push("/dashboard");
         }
     }
 
@@ -122,13 +114,13 @@ class LoginTraditionally extends Component {
                 <Container>
                     <form noValidate>
 
-                        <div className="text-danger text-center p-3">
-                            {errors.badRequest}
-                        </div>
-
                         <Row className="justify-content-center p-5">
                             <LoginWithGoogle/>
                         </Row>
+
+                        <div className="text-danger text-center p-3">
+                            {errors.badRequest}
+                        </div>
 
                         <Row className="justify-content-center">
                             <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
@@ -172,18 +164,18 @@ class LoginTraditionally extends Component {
                         <button
                             id="login"
                             type="submit"
-                            className="btn btn-outline-dark flex-center"
+                            className="btn btn-outline-dark"
                             onClick={this.handleClick}
                         >Login
                         </button>
 
-                        <small id="signUpHelp" className="form-text text-info">
+                        <small id="signUpHelp" className="form-text text-info text-center">
                             Not registered?
                         </small>
                         <button
                             id="signUp"
                             type="submit"
-                            className="btn btn-outline-info justify-content-center"
+                            className="btn btn-outline-info"
                             onClick={this.handleRedirectionToRegistration}
                         >Sign up
                         </button>
@@ -203,6 +195,12 @@ const Styles = styled.div`
     justify-content: left;
  }
  
+ .btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+ }
+   
  #login.btn  {
     margin-top: 20px;
     margin-bottom: 50px;

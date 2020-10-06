@@ -10,6 +10,12 @@ import FormTextHelper from "../utils/FormTextHelper";
 import LoginWithGoogle from "../login/LoginWithGoogle";
 import {withRouter} from "react-router-dom";
 import {validateSignUpFields} from "./validateSignUpFields";
+import {RestApiUrl} from "../constants/RestApiUrl";
+import {Labels} from "../constants/Labels";
+import {UserHttpResponse} from "../constants/UserHttpResponse";
+import {handleAuthentication} from "../authentication/handleAuthentication";
+import {handleErrors} from "../utils/handleErrors";
+import {Time} from "../constants/Time";
 
 class SignUpTraditionally extends Component {
 
@@ -78,7 +84,7 @@ class SignUpTraditionally extends Component {
         const nElem = countErrors(errors);
 
         if (nElem > 0) {
-            errors.submitButton = "Some of required data are not filled. Please enter all fields before proceeding.";
+            errors.submitButton = Labels.FAILED_SUBMIT;
         } else {
             this.handleAuthentication(errors, didBlur);
         }
@@ -86,33 +92,18 @@ class SignUpTraditionally extends Component {
 
 
     handleAuthentication = (errors, didBlur) => {
-        const url = "http://localhost:8080/api/v1/registration";
         axios
-            .post(url, this.state)
+            .post(RestApiUrl.REGISTRATION, this.state)
             .then(response => {
-                const token = response.data;
-                if (token !== null) {
-                    localStorage.setItem("token", response.data);
-                    localStorage.setItem("authenticated", "true");
-                    localStorage.setItem("authorized", "false");
+                if (response.data !== null) {
+                    handleAuthentication(response.data, true, false);
                 } else {
-                    errors.badRequest = "Ops, something went wrong with your registration."
+                    handleAuthentication(null, false, false);
+                    errors.badRequest = UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR;
                 }
             })
             .catch(error => {
-                let responseCode;
-                if (error.response.data.hasOwnProperty("responseCode")) {
-                    responseCode = error.response.data.responseCode;
-                }
-                if (responseCode === "REGISTRATION_FAILED_VIOLATED_FIELD_EMAIL") {
-                    errors.badRequest = "This user already exists in database."
-                } else if (responseCode === "REGISTRATION_FAILED_PREFIX_PHONE_NUMBER_MUST_BE_FILLED_IN_OR_NULL") {
-                    errors.badRequest = "Prefix and phone number must be both filled in or empty."
-                } else if (responseCode === "REGISTRATION_FAILED_SOME_PARAMETERS_NULL") {
-                    errors.badRequest = "Ops, something went wrong. Turned out some of your fields were empty."
-                } else {
-                    errors.badRequest = "Ops, something went wrong with your authentication, try again."
-                }
+                errors.badRequest = handleErrors(error, UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR, UserHttpResponse.UNKNOWN_EVENT);
             })
             .finally(() => {
                     this.handleRedirectionToDashboard(errors, didBlur);
@@ -123,13 +114,12 @@ class SignUpTraditionally extends Component {
     handleRedirectionToDashboard = (errors, didBlur) => {
         if (errors.badRequest.length > 0) {
             this.setState({errors, didBlur});
-            return;
-        }
-        if (localStorage.getItem("authenticated") === "true") {
-            this.props.history.push("/dashboard");
+            setTimeout(function () {
+                errors.badRequest = "";
+                this.setState({errors});
+            }.bind(this), Time.TIMEOUT);
         } else {
-            errors.badRequest = "Ops, something went wrong with your authentication, try again. HERE";
-            this.setState({errors, didBlur});
+            this.props.history.push("/dashboard");
         }
     }
 
@@ -138,21 +128,19 @@ class SignUpTraditionally extends Component {
         return (
             <Styles>
                 <Container>
-                    <div className="text-danger text-center p-3">
-                        {errors.badRequest}
-                    </div>
-
-                    <Row className="justify-content-center p-5">
-                        <LoginWithGoogle/>
-                    </Row>
-
                     <form noValidate>
+                        <Row className="justify-content-center">
+                            <LoginWithGoogle/>
+                        </Row>
+                        <div className="text-danger text-center p-3">
+                            {errors.badRequest}
+                        </div>
                         <Row className="justify-content-center p-1">
                             <Image src="http://www.icls.com.my/files/editor_files/How%20to%20apply/register.png"
                                    width="100"/>
                         </Row>
 
-                        <h2>Registration Form</h2>
+                        <h2 className="text-center">Registration Form</h2>
 
                         <Row className="col-md-auto mb-1">
                             <label htmlFor="email">Email address</label>
@@ -314,7 +302,7 @@ class SignUpTraditionally extends Component {
                         <button
                             id="submitButton"
                             type="submit"
-                            className="btn btn-dark justify-content-center"
+                            className="btn btn-dark"
                             onClick={this.handleClick}
                         >Submit
                         </button>
@@ -332,7 +320,7 @@ const Styles = styled.div`
     text-align: left;
     justify-content: left;
  }
-
+ 
  .col {
     margin-left: 0px;
     margin-right: 0px;
@@ -343,8 +331,12 @@ const Styles = styled.div`
 }
 
 .btn {
-    margin: 20px 20px 20px 20px;
-}
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:20px;
+    margin-bottom: 20px;
+ }
 `;
 
 export default withRouter(SignUpTraditionally);

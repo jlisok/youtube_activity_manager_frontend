@@ -1,14 +1,26 @@
-import React from 'react'
+import React, {useState} from 'react'
 import GoogleLogin from 'react-google-login';
 import {useHistory} from "react-router-dom";
 import axios from "axios";
+import {UserHttpResponse} from "../constants/UserHttpResponse";
+import {RestApiUrl} from "../constants/RestApiUrl";
+import {handleAuthentication} from "../authentication/handleAuthentication";
+import {handleErrors} from "../utils/handleErrors";
+import {GoogleConstants} from "../constants/GoogleConstants";
+import {Time} from "../constants/Time";
 
-
+//TODO: remove unexpected button shifting while on click (<DIV>) or centering (<Container>)
 export function LoginWithGoogle() {
+
+    const [badRequest, setBadRequest] = useState(undefined);
 
     const history = useHistory();
 
-    function signup(res) {
+    const responseGoogle = (response) => {
+        signUp(response);
+    }
+
+    function signUp(res) {
 
         const googleResponse = {
             name: res.profileObj.givenName,
@@ -19,46 +31,50 @@ export function LoginWithGoogle() {
             providerId: 'Google'
         };
 
-        const url = "http://localhost:8080/api/v1/login/viaGoogle";
-        let badRequest = null;
         axios
-            .post(url, googleResponse)
+            .post(RestApiUrl.GOOGLE_LOGIN, googleResponse)
             .then(response => {
-                //TODO: handling valid response after writing the functionality on the back-end side
-                localStorage.setItem("token", response.data);
-                localStorage.setItem("authenticated", "true");
-                localStorage.setItem("authorized", "true");
+                if (response.data !== null) {
+                    handleAuthentication(response.data, true, false);
+                } else {
+                    handleAuthentication(null, false, false);
+                    setBadRequest(UserHttpResponse.AUTHENTICATION_FAILED);
+                }
             })
             .catch(error => {
-                //TODO: handling errors after writing the functionality on the back-end side
-                badRequest = "Login or password is incorrect. Please, try again."
+                const exception = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
+                setBadRequest(exception);
             })
             .finally(() => {
-                    if (badRequest !== null) {
-                        return;
-                    }
-                    if (localStorage.getItem("authenticated") === "true") {
-                        history.push("/dashboard");
-                    }
+                    handleRedirectionToDashboard();
                 }
             )
     }
 
-
-    const responseGoogle = (response) => {
-        signup(response);
+    function handleRedirectionToDashboard() {
+        if (badRequest === undefined) {
+            history.push("/dashboard");
+        } else {
+            setTimeout(function () {
+                setBadRequest(null);
+            }, Time.TIMEOUT);
+        }
     }
 
-
     return (
-        <GoogleLogin
-            clientId="845161221251-8qcjjnqm3a568p0m9alajv2kaa514jot.apps.googleusercontent.com"
-            discoveryDocs="https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"
-            scope="https://www.googleapis.com/auth/youtube.readonly"
-            accessType="offline"
-            buttonText="Sign in with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}/>
+        <div>
+            <div className="text-danger text-center p-4">
+                {badRequest}
+            </div>
+            <GoogleLogin
+                clientId={GoogleConstants.CLIENT_ID}
+                discoveryDocs={GoogleConstants.DISCOVERY_DOCS}
+                scope={GoogleConstants.SCOPE}
+                accessType={GoogleConstants.ACCESS_TYPE}
+                buttonText="Sign in with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}/>
+        </div>
     )
 }
 
