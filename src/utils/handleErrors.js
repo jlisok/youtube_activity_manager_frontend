@@ -2,9 +2,11 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 
 export function handleErrors(error, httpRequestExceptionAnswer, unexpectedEventAnswer) {
     if (error.response) {
-        const responseCode = error.response.hasOwnProperty("data") ? error.response.data.hasOwnProperty("responseCode") ? error.response.data.responseCode : undefined : undefined;
-        const userResponse = responseCode !== undefined ? handleUserResponse(responseCode) : undefined;
-        return userResponse !== undefined ? userResponse : httpRequestExceptionAnswer;
+        if (error.response.hasOwnProperty("data")) {
+            const responseCode = error.response.data.hasOwnProperty("responseCode") ? error.response.data.responseCode : undefined;
+            const userResponse = responseCode !== undefined ? handleUserResponse(responseCode) : undefined;
+            return userResponse !== undefined ? userResponse : httpRequestExceptionAnswer;
+        }
     } else if (error.request) {
         return httpRequestExceptionAnswer;
     } else {

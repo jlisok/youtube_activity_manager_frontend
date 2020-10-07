@@ -135,6 +135,7 @@ class LoginTraditionally extends Component {
                                 type="text"
                                 placeholder="Enter your email"
                                 onChange={this.handleChange}
+                                onBlur={this.handleBlur}
                                 required
                             />
                             <div className="invalid-feedback">
@@ -151,6 +152,7 @@ class LoginTraditionally extends Component {
                                 id="password"
                                 placeholder="Enter the password"
                                 onChange={this.handleChange}
+                                onBlur={this.handleBlur}
                                 required
                             />
                             <div className="invalid-feedback">
