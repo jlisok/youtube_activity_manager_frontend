@@ -298,7 +298,9 @@ class SignUpTraditionally extends Component {
                             />
                         </Row>
 
-                        <small id="submitHelp" className="form-text text-danger">{errors.submitButton}</small>
+                        <div className="small text-danger text-left mt-4">
+                            {errors.submitButton}
+                        </div>
                         <button
                             id="submitButton"
                             type="submit"

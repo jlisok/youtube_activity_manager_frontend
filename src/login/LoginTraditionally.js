@@ -113,16 +113,15 @@ class LoginTraditionally extends Component {
             <Styles>
                 <Container>
                     <form noValidate>
-
-                        <Row className="justify-content-center p-5">
+                        <Row id="vertical-space">
                             <LoginWithGoogle/>
                         </Row>
-
-                        <div className="text-danger text-center p-3">
+                        <Row>
+                        <div className="text-danger">
                             {errors.badRequest}
                         </div>
-
-                        <Row className="justify-content-center">
+                        </Row>
+                        <Row  id="vertical-space">
                             <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
                         </Row>
 
@@ -159,29 +158,32 @@ class LoginTraditionally extends Component {
                                 {errors.password}
                             </div>
                         </Row>
-
-                        <div className="small text-danger text-center">
-                            {errors.submitButton}
-                        </div>
-                        <button
-                            id="login"
-                            type="submit"
-                            className="btn btn-outline-dark"
-                            onClick={this.handleClick}
-                        >Login
-                        </button>
-
-                        <small id="signUpHelp" className="form-text text-info text-center">
-                            Not registered?
-                        </small>
-                        <button
-                            id="signUp"
-                            type="submit"
-                            className="btn btn-outline-info"
-                            onClick={this.handleRedirectionToRegistration}
-                        >Sign up
-                        </button>
-
+                        <Row>
+                            <div className="small text-danger text-left mt-4">
+                                {errors.submitButton}
+                            </div>
+                            <button
+                                id="login"
+                                type="submit"
+                                className="btn btn-outline-dark"
+                                onClick={this.handleClick}
+                            >Login
+                            </button>
+                        </Row>
+                        <Row id="signUpHelp">
+                            <small id="signUpHelp" className="form-text text-info">
+                                Not registered?
+                            </small>
+                        </Row>
+                        <Row>
+                            <button
+                                id="signUp"
+                                type="submit"
+                                className="btn btn-outline-info"
+                                onClick={this.handleRedirectionToRegistration}
+                            >Sign up
+                            </button>
+                        </Row>
                     </form>
                 </Container>
             </Styles>
@@ -193,14 +195,25 @@ class LoginTraditionally extends Component {
 const Styles = styled.div`
  .row {
     width: 100%;
+    margin: auto;
     text-align: left;
     justify-content: left;
+    padding: 0px;
+ }
+ 
+ #signUpHelp.row {
+     justify-content: center;
+ }
+ 
+ #vertical-space.row {
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
  }
  
  .btn {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
  }
    
  #login.btn  {

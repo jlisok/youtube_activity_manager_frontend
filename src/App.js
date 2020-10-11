@@ -9,6 +9,7 @@ import OpsSomethingWentWrong from "./commons/OpsSomethingWentWrong";
 import {Layout} from "./commons/Layout";
 import Dashboard from "./dashboard/Dashboard";
 import HomeWithRegistration from "./home/HomeWithRegistration";
+import YouTubeActivity from "./youtube/YouTubeActivity";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                             <Route exact path="/signUp" component={HomeWithRegistration}/>
                             <Route exact path="/about" component={About}/>
                             <Route exact path="/dashboard" component={Dashboard}/>
+                            <Route exact path="/youtube_activity" component={YouTubeActivity}/>
                             <Route component={OpsSomethingWentWrong}/>
                         </Switch>
                     </BrowserRouter>
