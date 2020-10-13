@@ -1,0 +1,17 @@
+name: prTest
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.18
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.18
+      - name: Run tests
+        run: npm test
