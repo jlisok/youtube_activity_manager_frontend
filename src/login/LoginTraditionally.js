@@ -35,6 +35,11 @@ class LoginTraditionally extends Component {
         },
     }
 
+    constructor(props) {
+        super(props);
+        handleAuthentication(null, false, false);
+    }
+
 
     handleChange = event => {
         event.preventDefault();
@@ -74,7 +79,7 @@ class LoginTraditionally extends Component {
                 if (response.data !== null) {
                     handleAuthentication(response.data, true, false);
                 } else {
-                    handleAuthentication(null, false, false);
+                    handleAuthentication(undefined, false, false);
                     errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
                 }
             })

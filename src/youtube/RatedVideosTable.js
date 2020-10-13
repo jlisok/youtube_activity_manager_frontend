@@ -23,7 +23,7 @@ export const RatedVideosTable = (props) => {
                     <tr key={index}>
                         <td id="record" className="text-center">{index + 1}</td>
                         <td id="record" className="text-left w-50">{video.title}</td>
-                        <td id="record" className="text-left">{video.channel.title}</td>
+                        <td id="record" className="text-left">{video.channelTitle}</td>
                         <td id="record" className="text-center">{parseDuration(video.duration)}</td>
                         <td id="record" className="text-center">{video.publishedAt.substring(0, 10)}</td>
                     </tr>

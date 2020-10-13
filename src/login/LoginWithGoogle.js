@@ -9,7 +9,6 @@ import {handleErrors} from "../utils/handleErrors";
 import {GoogleConstants} from "../constants/GoogleConstants";
 import {Time} from "../constants/Time";
 
-//TODO: remove unexpected button shifting while on click (<DIV>) or centering (<Container>)
 function LoginWithGoogle() {
 
     const [badRequest, setBadRequest] = useState(undefined);

@@ -8,7 +8,7 @@ class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        if (localStorage.getItem("authenticated") === "false") {
+        if (localStorage.getItem("authenticated") !== "true") {
             this.props.history.push("/")
         }
     }

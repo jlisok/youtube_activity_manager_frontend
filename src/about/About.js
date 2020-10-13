@@ -121,6 +121,7 @@ class About extends Component {
                                     <p className="inline"><b>Experience:</b> Apprentice Java Developer, Academic
                                         Researcher, Software Tester </p>
                                     <p className="inline"><b>Position I'm interested in:</b> Junior Java Developer </p>
+                                    <p className="inline"><b>Request:</b> Like my code on GitHub? Endorse me on LinkedIn, please </p>
                                     <p className="inline"><b>Current address: </b> Warsaw, Poland </p>
                                 </label>
                                 <Navbar className="text-justify align-items-start p-0">
