@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.18
-          
       - name: Grant executable permission to buildImage
         run: chmod +x ci/buildImage.sh
       - name: Build and push docker image
