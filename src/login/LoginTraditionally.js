@@ -92,6 +92,26 @@ class LoginTraditionally extends Component {
             )
     }
 
+    handleDemoAuthentication = (errors, didBlur) => {
+        axios
+            .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
+            .then(response => {
+                if (response.data !== null) {
+                    handleAuthentication(response.data, true, false);
+                } else {
+                    handleAuthentication(undefined, false, false);
+                    errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
+                }
+            })
+            .catch(error => {
+                errors.badRequest = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
+            })
+            .finally(() => {
+                    this.handleRedirectionToDashboard(errors, didBlur);
+                }
+            )
+    }
+
 
     handleRedirectionToDashboard = (errors, didBlur) => {
         if (errors.badRequest.length > 0) {
@@ -126,7 +146,7 @@ class LoginTraditionally extends Component {
                             {errors.badRequest}
                         </div>
                         </Row>
-                        <Row  id="vertical-space">
+                        <Row id="vertical-space">
                             <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
                         </Row>
 
@@ -175,6 +195,7 @@ class LoginTraditionally extends Component {
                             >Login
                             </button>
                         </Row>
+
                         <Row id="signUpHelp">
                             <small id="signUpHelp" className="form-text text-info">
                                 Not registered?
@@ -187,6 +208,21 @@ class LoginTraditionally extends Component {
                                 className="btn btn-outline-info"
                                 onClick={this.handleRedirectionToRegistration}
                             >Sign up
+                            </button>
+                        </Row>
+
+                        <Row id="demoHelp">
+                            <small id="demoHelp" className="form-text text-danger form-text-center">
+                                Don't trust us with your data? No YouTube account?<br/>Check out the demo user!
+                            </small>
+                        </Row>
+                        <Row>
+                            <button
+                                id="demo"
+                                type="submit"
+                                className="btn btn-outline-danger"
+                                onClick={this.handleDemoAuthentication}
+                            >Login as demo user
                             </button>
                         </Row>
                     </form>
@@ -210,6 +246,15 @@ const Styles = styled.div`
      justify-content: center;
  }
  
+ #demoHelp.row {
+     justify-content: center;
+ }
+ 
+ #demo.btn  {
+    margin-top: 5px;
+    margin-bottom: 20px;
+ }
+ 
  #vertical-space.row {
     justify-content: center;
     margin-top: 20px;
@@ -230,6 +275,10 @@ const Styles = styled.div`
     margin-top: 5px;
     margin-bottom: 20px;
  }
+ .form-text-center {
+   text-align: center;
+ }
+ 
 `;
 
 export default withRouter(LoginTraditionally);

@@ -111,6 +111,26 @@ class SignUpTraditionally extends Component {
             )
     }
 
+    handleDemoAuthentication = (errors, didBlur) => {
+        axios
+            .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
+            .then(response => {
+                if (response.data !== null) {
+                    handleAuthentication(response.data, true, false);
+                } else {
+                    handleAuthentication(null, false, false);
+                    errors.badRequest = UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR;
+                }
+            })
+            .catch(error => {
+                errors.badRequest = handleErrors(error, UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR, UserHttpResponse.UNKNOWN_EVENT);
+            })
+            .finally(() => {
+                    this.handleRedirectionToDashboard(errors, didBlur);
+                }
+            )
+    }
+
     handleRedirectionToDashboard = (errors, didBlur) => {
         if (errors.badRequest.length > 0) {
             this.setState({errors, didBlur});
@@ -308,6 +328,21 @@ class SignUpTraditionally extends Component {
                             onClick={this.handleClick}
                         >Submit
                         </button>
+
+                        <Row id="demoHelp">
+                            <small id="demoHelp" className="form-text text-danger">
+                                Too many fields to fill? Check out the demo user!
+                            </small>
+                        </Row>
+                        <Row>
+                            <button
+                                id="demo"
+                                type="submit"
+                                className="btn btn-outline-danger"
+                                onClick={this.handleDemoAuthentication}
+                            >Login as demo user
+                            </button>
+                        </Row>
                     </form>
                 </Container>
             </Styles>
@@ -339,6 +374,15 @@ const Styles = styled.div`
     margin-top:20px;
     margin-bottom: 20px;
  }
+ 
+ #demoHelp.row {
+     justify-content: center;
+ }
+ #demo.btn  {
+    margin-top: 5px;
+    margin-bottom: 20px;
+ }
+ 
 `;
 
 export default withRouter(SignUpTraditionally);
