@@ -7,7 +7,7 @@ export const WelcomePage = () => (
     <Styles>
         <Container>
             <Row>
-                <Image src="https://media1.giphy.com/media/9DrtQzeZcZm5gAwdM0/source.gif" roundedCircle
+                <Image src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/hopping-alpaca.gif" roundedCircle
                        width="150"/>
             </Row>
             <Row>

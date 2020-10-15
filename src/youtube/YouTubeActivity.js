@@ -42,7 +42,6 @@ class YouTubeActivity extends Component {
 
 
     handleHttpRequest = (state) => {
-        let list;
         const ApiUri = this.retrieveApiEndPointUri(state.activityType);
         axios
             .get(ApiUri, {
@@ -53,7 +52,9 @@ class YouTubeActivity extends Component {
             })
             .then(response => {
                 if (response.data !== null) {
-                    list = response.data;
+                    const listName = state.activityType.toLowerCase();
+                    state.youtube[listName] = response.data;
+                    this.setState({state});
                 } else {
                     state["exception"] = UserHttpResponse.UNKNOWN_EVENT;
                 }
@@ -62,8 +63,6 @@ class YouTubeActivity extends Component {
                 state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
             })
             .finally(() => {
-                    const listName = state.activityType.toLowerCase();
-                    state.youtube[listName] = list;
                     this.setState({state});
                 }
             )

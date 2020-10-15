@@ -12,7 +12,7 @@ class OpsSomethingWentWrong extends Component {
                     <Row>
                         <Col>
                             <Image
-                                src="https://cdn.dribbble.com/users/1342631/screenshots/4576524/alpaca_animated_dribbble.gif"
+                                src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/alpaca.gif"
                                 roundedCircle width="300"/>
                         </Col>
                         <Col>

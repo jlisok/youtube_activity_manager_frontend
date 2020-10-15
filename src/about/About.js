@@ -9,7 +9,7 @@ class About extends Component {
                 <Container>
                     <Row className="topRow">
                         <Image
-                            src="https://cdn.dribbble.com/users/1342631/screenshots/4576524/alpaca_animated_dribbble.gif"
+                            src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/alpaca.gif"
                             roundedCircle width="300"/>
                     </Row>
 
@@ -76,143 +76,6 @@ class About extends Component {
                         </a>
                     </Row>
 
-                    <Row id="text">
-                        <label
-                            className="text"
-                            id="aboutUsTitle"
-                        >What does the application do? # TODO app workflow</label>
-                    </Row>
-                    <Row>
-                        <label
-                            id="text">
-                            <p className="inline"
-                               id="presentation">
-                                YouTube Activity Manager is a web application that integrates with Google, YouTube and
-                                AWS S3 APIs to present you with your Youtube activity. This includes the overall
-                                information on channels that you are subscribed to and all videos that you happen to
-                                like or dislike. The application is also able to show you some statistics on how much
-                                you binge-watched particular categories of videos. Finally, here we present the inner
-                                beauty of the application, hope you like it.
-
-                                <Image id="schema" src={require("../resources/aws.jpg")}/>
-
-                                Don't get us wrong, but we also collect some data on you behind your back and store them
-                                on AWS S3 for selling purposes (aiming for personalized add providers). Relax, nothing
-                                sensitive, we fear RODO too much. In case you want to make sure on your own what kind of
-                                data we store, go see for yourself to hidden `/AWS` tab.
-                                <p/>
-                                Not feeling like registering today but still want to admire our work? Don't worry, here
-                                is<Nav.Link id="RouterNavLink"
-                                            className="d-inline-block"
-                                            style={{color: 'grey'}}
-                                            href="login: alpaca.lover@gmail.com password: AlpacaLover">login/password</Nav.Link>of
-                                a user that loves alpacas / birds / raccoons and for some reason cars.
-                            </p>
-                        </label>
-                    </Row>
-
-                    <Row id="text">
-                        <label
-                            className="text"
-                            id="aboutUsTitle"
-                        >How does it run on production?</label>
-                    </Row>
-                    <Row>
-                        <Image id="schema" src={require("../resources/aws.jpg")}/>
-                    </Row>
-
-                    <Row>
-                        <p className="inline">
-                            The application code lives in three <span
-                            className="font-weight-bold">GitHub</span> projects: <a
-                            href="https://github.com/jlisok/youtube_activity_manager" target="_blank"
-                            rel="noopener noreferrer">Backend</a>, <a
-                            href="https://github.com/jlisok/youtube_activity_manager_frontend" target="_blank"
-                            rel="noopener noreferrer">Frontend</a>, <a
-                            href="https://github.com/jlisok/youtube_activity_manager_deployment" target="_blank"
-                            rel="noopener noreferrer">Deployment</a>
-                            .
-                        </p>
-
-                        <p className="inline">
-                            <a href="https://github.com/jlisok/youtube_activity_manager" target="_blank"
-                               rel="noopener noreferrer">Backend</a> and <a
-                            href="https://github.com/jlisok/youtube_activity_manager_frontend" target="_blank"
-                            rel="noopener noreferrer">Frontend</a> projects contain scripts that automatically,
-                            via <span className="font-weight-bold">GitHub CI</span> jobs, build
-                            <span className="font-weight-bold"> Docker</span> images from the master branch, and upload
-                            them to the <span className="font-weight-bold">ECR</span>.
-                        </p>
-
-                        <p className="inline">
-                            The <a href="https://github.com/jlisok/youtube_activity_manager" target="_blank"
-                                   rel="noopener noreferrer">Backend</a> container image is built based on
-                            production-optimised Spring Boot <span className="font-weight-bold">Paketo Buildpack</span>.
-                        </p>
-
-                        <p className="inline">
-                            The <a
-                            href="https://github.com/jlisok/youtube_activity_manager_frontend" target="_blank"
-                            rel="noopener noreferrer">Frontend</a> container contains a <span
-                            className="font-weight-bold">Nginx</span> deployment serving static, production-optimized
-                            files built by <span className="font-weight-bold">NPM</span>.
-                        </p>
-
-                        <p className="inline">
-                            The <a href="https://github.com/jlisok/youtube_activity_manager_deployment"
-                                   target="_blank" rel="noopener noreferrer">Deployment</a> project contains <span
-                            className="font-weight-bold">GitHub CI</span> jobs that start the above images on the target
-                            <span className="font-weight-bold"> EC2</span> machine, using <span
-                            className="font-weight-bold">docker-compose</span>. We have to host
-                            both services on a single machine in order not to exceed the AWS Free Tier resource quotas.
-                        </p>
-
-                        <p className="inline">The backend service uses <span className="font-weight-bold">S3 and RDS (PostgreSQL)</span> to
-                            store application data.
-                        </p>
-
-                        <p className="inline">
-                            The <span className="font-weight-bold"> EC2</span> instance is exposed via two <span
-                            className="font-weight-bold">Target Groups</span>, one for API requests, the other for
-                            loading static frontend assets.
-                        </p>
-
-                        <p className="inline">
-                            The <span className="font-weight-bold">ELB Application Load Balancer</span> routes incoming
-                            requests to one of the above <span className="font-weight-bold">Target Groups</span> based
-                            on their paths.
-                        </p>
-
-                        <p className="inline">
-                            The <span className="font-weight-bold">ELB Application Load Balancer</span> also handles
-                            HTTPS
-                            termination, by means of a <span className="font-weight-bold">SSL</span> certificate managed
-                            by <span className="font-weight-bold">AWS Certificate Manager</span>. All network traffic
-                            inside the secure AWS network is unencrypted. ELB enforces HTTPS by redirecting all
-                            incoming HTTP traffic to HTTPS on port 443.
-                        </p>
-
-                        <p className="inline">
-                            <span className="font-weight-bold">DNS</span> mapping of the <a href="https://jlisok.pl"
-                                                                                            target="_blank"
-                                                                                            rel="noopener noreferrer">jlisok.pl</a> URL
-                            to the <span
-                            className="font-weight-bold">ELB</span> instance is handled by <span
-                            className="font-weight-bold">Route53</span>.
-                        </p>
-
-                        <p className="inline">
-                            The <span className="font-weight-bold">React.js</span> "almost single-page" web application
-                            is served under the <a href="https://jlisok.pl" target="_blank"
-                                                   rel="noopener noreferrer">jlisok.pl</a> URL by the
-                            youtube_activity_manager_frontend container running in the EC2 instance.
-                        </p>
-
-                        <p className="inline">
-                            All <span className="font-weight-bold">REST</span> API requests are handled by the
-                            youtube_activity_manager container running in the EC2 instance.
-                        </p>
-                    </Row>
 
                     <Row id="text">
                         <label
@@ -223,7 +86,7 @@ class About extends Component {
                     <Row>
                         <Col id="left">
                             <Row>
-                                <Image className="portrait" src={require("../resources/alpaca.jpg")} roundedCircle/>
+                                <Image className="portrait" src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/black-white-alpaca.jpg" roundedCircle/>
                             </Row>
                             <Row id="labeling">
                                 <label className="m-auto pt-2">"The Application"</label>
@@ -272,7 +135,7 @@ class About extends Component {
                     <Row>
                         <Col id="left">
                             <Row>
-                                <Image className="portrait" src={require("../resources/JLisok.jpg")} roundedCircle/>
+                                <Image className="portrait" src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/jlisok.jpg" roundedCircle/>
                             </Row>
                             <Row id="labeling">
                                 <label className="m-auto pt-2">Justyna</label>
@@ -318,7 +181,7 @@ class About extends Component {
                     <Row>
                         <Col id="left">
                             <Row>
-                                <Image className="portrait" src={require("../resources/PBurcon.jpg")} roundedCircle/>
+                                <Image className="portrait" src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/PBurcon.jpg" roundedCircle/>
                             </Row>
                             <Row id="labeling">
                                 <label className="m-auto pt-2">Przemek</label>
