@@ -1,7 +1,7 @@
 import React from 'react';
 import {Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
-
+//TODO: icon change on login / logout
 export const NavigationBar = () => (
     <Styles>
             <Navbar expand="lg">

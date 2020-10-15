@@ -10,8 +10,8 @@ export const UserHttpResponse = {
     LOGIN_FAILED_GOOGLE_TOKEN_INVALID: "Ops, something went wrong with your authentication, try again.",
     LOGIN_FAILED_EMAIL_NOT_VERIFIED: "Ops, something went wrong with your authentication, try again.",
 
-    YOUTUBE_API_REQUEST_FAILED_ACCESS_TOKEN_FAILURE: "11111",
-    YOUTUBE_API_REQUEST_FAILED_INVALID_REQUEST: "11111",
+    YOUTUBE_API_REQUEST_FAILED_ACCESS_TOKEN_FAILURE: "YouTube communication failed. Your authentication credentials are invalid.",
+    YOUTUBE_API_REQUEST_FAILED_INVALID_REQUEST: "YouTube communication failed. Invalid request.",
 
     AUTHENTICATION_FAILED: "Ops, something went wrong with your authentication, try again.",
 

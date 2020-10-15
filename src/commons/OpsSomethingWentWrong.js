@@ -11,10 +11,12 @@ class OpsSomethingWentWrong extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <Image src="https://cdn.dribbble.com/users/1342631/screenshots/4576524/alpaca_animated_dribbble.gif" roundedCircle width="300"/>
+                            <Image
+                                src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/alpaca.gif"
+                                roundedCircle width="300"/>
                         </Col>
                         <Col>
-                            <h1> Oops! </h1>
+                            <h1>Oops!</h1>
                             <br/>
                             <h2>Something went wrong!</h2>
                         </Col>
@@ -27,9 +29,34 @@ class OpsSomethingWentWrong extends Component {
 
 const Styles = styled.div`
 .container {
-  height: 100;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 35%;
+  align-content: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    margin-top: 180px;
+    justify-content: center;
+ }
+ 
+ .col {
+    height: 100%;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 `;
 

@@ -35,6 +35,11 @@ class LoginTraditionally extends Component {
         },
     }
 
+    constructor(props) {
+        super(props);
+        handleAuthentication(null, false, false);
+    }
+
 
     handleChange = event => {
         event.preventDefault();
@@ -74,7 +79,7 @@ class LoginTraditionally extends Component {
                 if (response.data !== null) {
                     handleAuthentication(response.data, true, false);
                 } else {
-                    handleAuthentication(null, false, false);
+                    handleAuthentication(undefined, false, false);
                     errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
                 }
             })
@@ -86,6 +91,26 @@ class LoginTraditionally extends Component {
                 }
             )
     }
+
+    /*handleDemoAuthentication = (errors, didBlur) => {
+        axios
+            .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
+            .then(response => {
+                if (response.data !== null) {
+                    handleAuthentication(response.data, true, false);
+                } else {
+                    handleAuthentication(undefined, false, false);
+                    errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
+                }
+            })
+            .catch(error => {
+                errors.badRequest = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
+            })
+            .finally(() => {
+                    this.handleRedirectionToDashboard(errors, didBlur);
+                }
+            )
+    }*/
 
 
     handleRedirectionToDashboard = (errors, didBlur) => {
@@ -113,16 +138,15 @@ class LoginTraditionally extends Component {
             <Styles>
                 <Container>
                     <form noValidate>
-
-                        <Row className="justify-content-center p-5">
+                        <Row id="vertical-space">
                             <LoginWithGoogle/>
                         </Row>
-
-                        <div className="text-danger text-center p-3">
+                        <Row>
+                        <div className="text-danger">
                             {errors.badRequest}
                         </div>
-
-                        <Row className="justify-content-center">
+                        </Row>
+                        <Row id="vertical-space">
                             <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
                         </Row>
 
@@ -159,29 +183,48 @@ class LoginTraditionally extends Component {
                                 {errors.password}
                             </div>
                         </Row>
+                        <Row>
+                            <div className="small text-danger text-left mt-4">
+                                {errors.submitButton}
+                            </div>
+                            <button
+                                id="login"
+                                type="submit"
+                                className="btn btn-outline-dark"
+                                onClick={this.handleClick}
+                            >Login
+                            </button>
+                        </Row>
 
-                        <div className="small text-danger text-center">
-                            {errors.submitButton}
-                        </div>
-                        <button
-                            id="login"
-                            type="submit"
-                            className="btn btn-outline-dark"
-                            onClick={this.handleClick}
-                        >Login
-                        </button>
+                        <Row id="signUpHelp">
+                            <small id="signUpHelp" className="form-text text-info">
+                                Not registered?
+                            </small>
+                        </Row>
+                        <Row>
+                            <button
+                                id="signUp"
+                                type="submit"
+                                className="btn btn-outline-info"
+                                onClick={this.handleRedirectionToRegistration}
+                            >Sign up
+                            </button>
+                        </Row>
 
-                        <small id="signUpHelp" className="form-text text-info text-center">
-                            Not registered?
-                        </small>
-                        <button
-                            id="signUp"
-                            type="submit"
-                            className="btn btn-outline-info"
-                            onClick={this.handleRedirectionToRegistration}
-                        >Sign up
-                        </button>
-
+                        {/*<Row id="demoHelp">
+                            <small id="demoHelp" className="form-text text-danger form-text-center">
+                                Don't trust us with your data? No YouTube account?<br/>Check out the demo user!
+                            </small>
+                        </Row>*/}
+                        {/*<Row>
+                            <button
+                                id="demo"
+                                type="submit"
+                                className="btn btn-outline-danger"
+                                onClick={this.handleDemoAuthentication}
+                            >Login as demo user
+                            </button>
+                        </Row>*/}
                     </form>
                 </Container>
             </Styles>
@@ -193,14 +236,34 @@ class LoginTraditionally extends Component {
 const Styles = styled.div`
  .row {
     width: 100%;
+    margin: auto;
     text-align: left;
     justify-content: left;
+    padding: 0px;
+ }
+ 
+ #signUpHelp.row {
+     justify-content: center;
+ }
+ 
+ #demoHelp.row {
+     justify-content: center;
+ }
+ 
+ #demo.btn  {
+    margin-top: 5px;
+    margin-bottom: 20px;
+ }
+ 
+ #vertical-space.row {
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
  }
  
  .btn {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
  }
    
  #login.btn  {
@@ -212,6 +275,10 @@ const Styles = styled.div`
     margin-top: 5px;
     margin-bottom: 20px;
  }
+ .form-text-center {
+   text-align: center;
+ }
+ 
 `;
 
 export default withRouter(LoginTraditionally);

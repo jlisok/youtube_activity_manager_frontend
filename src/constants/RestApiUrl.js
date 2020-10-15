@@ -3,5 +3,8 @@ import {environmentConfig} from "../environmentConfig";
 export const RestApiUrl = {
     REGISTRATION: environmentConfig.API_URL + "/api/v1/registration",
     TRADITIONAL_LOGIN: environmentConfig.API_URL + "/api/v1/login",
-    GOOGLE_LOGIN: environmentConfig.API_URL + "/api/v1/login/viaGoogle"
+    GOOGLE_LOGIN: environmentConfig.API_URL + "/api/v1/login/viaGoogle",
+    SUBSCRIBED_CHANNELS: environmentConfig.API_URL + "/api/v1/youtube/channels",
+    VIDEOS: environmentConfig.API_URL + "/api/v1/youtube/videos",
+
 }
