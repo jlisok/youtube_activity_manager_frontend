@@ -111,7 +111,7 @@ class SignUpTraditionally extends Component {
             )
     }
 
-    handleDemoAuthentication = (errors, didBlur) => {
+    /*handleDemoAuthentication = (errors, didBlur) => {
         axios
             .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
             .then(response => {
@@ -129,7 +129,7 @@ class SignUpTraditionally extends Component {
                     this.handleRedirectionToDashboard(errors, didBlur);
                 }
             )
-    }
+    }*/
 
     handleRedirectionToDashboard = (errors, didBlur) => {
         if (errors.badRequest.length > 0) {
@@ -329,7 +329,7 @@ class SignUpTraditionally extends Component {
                         >Submit
                         </button>
 
-                        <Row id="demoHelp">
+                        {/*<Row id="demoHelp">
                             <small id="demoHelp" className="form-text text-danger">
                                 Too many fields to fill? Check out the demo user!
                             </small>
@@ -342,7 +342,7 @@ class SignUpTraditionally extends Component {
                                 onClick={this.handleDemoAuthentication}
                             >Login as demo user
                             </button>
-                        </Row>
+                        </Row>*/}
                     </form>
                 </Container>
             </Styles>

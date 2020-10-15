@@ -92,7 +92,7 @@ class LoginTraditionally extends Component {
             )
     }
 
-    handleDemoAuthentication = (errors, didBlur) => {
+    /*handleDemoAuthentication = (errors, didBlur) => {
         axios
             .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
             .then(response => {
@@ -110,7 +110,7 @@ class LoginTraditionally extends Component {
                     this.handleRedirectionToDashboard(errors, didBlur);
                 }
             )
-    }
+    }*/
 
 
     handleRedirectionToDashboard = (errors, didBlur) => {
@@ -211,12 +211,12 @@ class LoginTraditionally extends Component {
                             </button>
                         </Row>
 
-                        <Row id="demoHelp">
+                        {/*<Row id="demoHelp">
                             <small id="demoHelp" className="form-text text-danger form-text-center">
                                 Don't trust us with your data? No YouTube account?<br/>Check out the demo user!
                             </small>
-                        </Row>
-                        <Row>
+                        </Row>*/}
+                        {/*<Row>
                             <button
                                 id="demo"
                                 type="submit"
@@ -224,7 +224,7 @@ class LoginTraditionally extends Component {
                                 onClick={this.handleDemoAuthentication}
                             >Login as demo user
                             </button>
-                        </Row>
+                        </Row>*/}
                     </form>
                 </Container>
             </Styles>
