@@ -1,6 +1,7 @@
 import React from "react";
 import {Table} from "react-bootstrap";
 import styled from "styled-components";
+import {SelectVariableColumnName} from "./SelectVariableColumnName";
 
 export const StatsTable = (props) => {
 
@@ -10,11 +11,7 @@ export const StatsTable = (props) => {
                 <thead>
                 <tr className="table-secondary">
                     <th id="record">No</th>
-                    <th id="record">{
-                        props.state.selectVariable === "numberVideos" ?
-                            "No of videos" : props.state.selectVariable === "averageTime" ?
-                            "Mean video duration" : "Total time spent watching"
-                    }
+                    <th id="record">{SelectVariableColumnName(props.state)}
                     </th>
                     <th id="record">{
                         props.state.groupingVariable === "byCategory" ? "Video category" : "Channel creator"
