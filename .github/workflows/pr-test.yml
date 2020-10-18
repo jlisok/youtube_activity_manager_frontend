@@ -17,4 +17,4 @@ jobs:
       - name: Set up react scripts
         run: npm install react-scripts@3.4.1 -g --silent
       - name: Run tests
-        run: npm test
+        run: npm test --passWithNoTests
