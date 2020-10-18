@@ -1,9 +1,8 @@
 import React from "react";
 import {Table} from "react-bootstrap";
-import {parseDuration} from "../utils/parseDuration";
 import styled from "styled-components";
 
-export const RatedVideosTable = (props) => {
+export const StatsTable = (props) => {
 
     return (
         <Styles>
@@ -11,20 +10,25 @@ export const RatedVideosTable = (props) => {
                 <thead>
                 <tr className="table-secondary">
                     <th id="record">No</th>
-                    <th id="record">Video title</th>
-                    <th id="record">Channel name</th>
-                    <th id="record">Duration</th>
-                    <th id="record">Published at</th>
+                    <th id="record">{
+                        props.state.selectVariable === "numberVideos" ?
+                            "No of videos" : props.state.selectVariable === "averageTime" ?
+                            "Mean video duration" : "Total time spent watching"
+                    }
+                    </th>
+                    <th id="record">{
+                        props.state.groupingVariable === "byCategory" ? "Video category" : "Channel creator"
+                    }</th>
                 </tr>
                 </thead>
                 <tbody>
-                {props.state.youtube[props.state.activityType.toLowerCase()].map((video, index) =>
+                {props.state.stats[props.state.groupingVariable].map((statistics, index) =>
                     <tr key={index}>
                         <td id="record" className="text-center">{index + 1}</td>
-                        <td id="record" className="text-left w-50">{video.title}</td>
-                        <td id="record" className="text-left">{video.channelTitle}</td>
-                        <td id="record" className="text-center">{parseDuration(video.duration)}</td>
-                        <td id="record" className="text-center">{video.publishedAt.substring(0, 10)}</td>
+                        <td id="record" className="text-center">{statistics[props.state.selectVariable]}</td>
+                        <td id="record" className="text-left">{
+                            props.state.groupingVariable === "byCreator" ? statistics["creatorName"] : statistics["categoryName"]
+                        }</td>
                     </tr>
                 )}
                 </tbody>
@@ -44,6 +48,7 @@ const Styles = styled.div`
     border-width: 5px;
     line-height: 20px;
     font-size: 17px;
+
  }
  
  #record {

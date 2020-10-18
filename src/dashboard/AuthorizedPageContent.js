@@ -30,7 +30,7 @@ export function AuthorizedPageContent() {
                             id="statistics"
                             type="statistics"
                             className=" btn btn-outline-info"
-                            onClick={() => handleRedirection("/statistics")}
+                            onClick={() => handleRedirection("/stats")}
 
                         >Let's talk statistics
                         </button>
