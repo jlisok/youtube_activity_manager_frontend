@@ -2,6 +2,8 @@ import React from "react";
 import {Table} from "react-bootstrap";
 import styled from "styled-components";
 import {SelectVariableColumnName} from "./SelectVariableColumnName";
+import {JsonObjectNames} from "./JsonObjectNames";
+import {TableColumnNames} from "./TableColumnNames";
 
 export const StatsTable = (props) => {
 
@@ -14,17 +16,17 @@ export const StatsTable = (props) => {
                     <th id="record">{SelectVariableColumnName(props.state)}
                     </th>
                     <th id="record">{
-                        props.state.groupingVariable === "byCategory" ? "Video category" : "Channel creator"
+                        props.state.groupingVariable === JsonObjectNames.BY_CATEGORY ? TableColumnNames.VIDEO_CATEGORY : TableColumnNames.CHANNEL_CREATOR
                     }</th>
                 </tr>
                 </thead>
                 <tbody>
-                {props.state.stats[props.state.groupingVariable].map((statistics, index) =>
+                {props.state.arrays[props.state.groupingVariable].map((statistics, index) =>
                     <tr key={index}>
                         <td id="record" className="text-center">{index + 1}</td>
                         <td id="record" className="text-center">{statistics[props.state.selectVariable]}</td>
                         <td id="record" className="text-left">{
-                            props.state.groupingVariable === "byCreator" ? statistics["creatorName"] : statistics["categoryName"]
+                            props.state.groupingVariable === JsonObjectNames.BY_CREATOR ? statistics[JsonObjectNames.JSON_CREATOR_NAME] : statistics[JsonObjectNames.JSON_CATEGORY_NAME]
                         }</td>
                     </tr>
                 )}

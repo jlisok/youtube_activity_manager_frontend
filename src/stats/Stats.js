@@ -5,6 +5,8 @@ import styled from "styled-components";
 import axios from "axios";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
+import {JsonObjectNames} from "./JsonObjectNames";
+
 import {handleErrors} from "../utils/handleErrors";
 import {StatsTable} from "./StatsTable";
 
@@ -14,7 +16,7 @@ class Stats extends Component {
         selectVariable: "",
         groupingVariable: "",
         exception: "",
-        stats: {
+        arrays: {
             byCreator: "",
             byCategory: "",
         },
@@ -32,7 +34,7 @@ class Stats extends Component {
         const state = this.state;
         const {name, value} = event.target;
         state[name] = value;
-        if (state.groupingVariable.length > 0 && state.stats[state.groupingVariable].length === 0) {
+        if (state.groupingVariable.length > 0 && state.arrays[state.groupingVariable].length === 0) {
             this.handleHttpRequest(state);
         } else {
             this.setState({state});
@@ -41,9 +43,9 @@ class Stats extends Component {
 
 
     handleHttpRequest = (state) => {
-        const ApiUri = this.retrieveApiEndPointUri(state.groupingVariable);
+        const endPointUri = this.retrieveApiEndPointUri(state.groupingVariable);
         axios
-            .get(ApiUri, {
+            .get(endPointUri, {
                 headers: {
                     Authorization: "Bearer: " + localStorage.getItem("token"),
                 }
@@ -51,8 +53,7 @@ class Stats extends Component {
             .then(response => {
                 if (response.data !== null) {
                     const listName = state.groupingVariable;
-                    state.stats[listName] = response.data;
-                    this.setState({state});
+                    state.arrays[listName] = response.data;
                 } else {
                     state["exception"] = UserHttpResponse.UNKNOWN_EVENT;
                 }
@@ -68,7 +69,7 @@ class Stats extends Component {
 
 
     retrieveApiEndPointUri = (groupingVariable) => {
-        return groupingVariable.includes("byCreator") ? RestApiUrl.STATS_BY_CREATOR : RestApiUrl.STATS_BY_CATEGORY;
+        return groupingVariable.includes(JsonObjectNames.BY_CREATOR) ? RestApiUrl.STATS_BY_CREATOR : RestApiUrl.STATS_BY_CATEGORY;
     }
 
 
@@ -103,9 +104,9 @@ class Stats extends Component {
                                 onChange={this.handleChange}
                             >
                                 <option value="" hidden>Open select menu</option>
-                                <option value="numberVideos">number of videos</option>
-                                <option value="averageTime">video's average time</option>
-                                <option value="totalTime">total time</option>
+                                <option value={JsonObjectNames.JSON_NUMBER_VIDEOS}>number of videos</option>
+                                <option value={JsonObjectNames.JSON_AVERAGE_TIME}>video's average time</option>
+                                <option value={JsonObjectNames.JSON_TOTAL_TIME}>total time</option>
                             </select>
                         </Col>
                         <Col>
@@ -116,8 +117,8 @@ class Stats extends Component {
                                 onChange={this.handleChange}
                             >
                                 <option value="" hidden>Open select menu</option>
-                                <option value="byCreator">creator</option>
-                                <option value="byCategory">category</option>
+                                <option value={JsonObjectNames.BY_CREATOR}>creator</option>
+                                <option value={JsonObjectNames.BY_CATEGORY}>category</option>
                             </select>
                         </Col>
                     </Row>
