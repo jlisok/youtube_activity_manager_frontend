@@ -5,7 +5,7 @@ import axios from "axios";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {handleAuthentication} from "../authentication/handleAuthentication";
-import {handleErrors} from "../utils/handleErrors";
+import {handleErrors} from "../axios/handleErrors";
 import {GoogleConstants} from "../constants/GoogleConstants";
 import {Time} from "../constants/Time";
 

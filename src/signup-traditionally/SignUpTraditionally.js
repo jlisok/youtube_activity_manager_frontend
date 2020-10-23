@@ -14,7 +14,7 @@ import {RestApiUrl} from "../constants/RestApiUrl";
 import {Labels} from "../constants/Labels";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleAuthentication} from "../authentication/handleAuthentication";
-import {handleErrors} from "../utils/handleErrors";
+import {handleErrors} from "../axios/handleErrors";
 import {Time} from "../constants/Time";
 
 class SignUpTraditionally extends Component {

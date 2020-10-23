@@ -4,10 +4,10 @@ import React from "react";
 import {Labels} from "../constants/Labels";
 
 export const YouTubeActivityTable = (props) => {
-    if (props.state.youtube[props.state.activityType.toLowerCase()] === undefined) {
+    if (props.state.arrays[props.state.activityType.toLowerCase()] === undefined) {
         return null;
     }
-    if (props.state.youtube[props.state.activityType.toLowerCase()].length === 0) {
+    if (props.state.arrays[props.state.activityType.toLowerCase()].length === 0) {
         return <label id="info" className="text-dark">
             {Labels.EMPTY_YOUTUBE_LIST}
         </label>

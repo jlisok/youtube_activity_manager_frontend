@@ -9,7 +9,7 @@ import {countErrors} from "../utils/countErrors";
 import {handleStylesChangeOnValidation} from "../utils/handleStylesChangeOnValidation";
 import {withRouter} from "react-router-dom";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
-import {handleErrors} from "../utils/handleErrors";
+import {handleErrors} from "../axios/handleErrors";
 import {handleAuthentication} from "../authentication/handleAuthentication";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {Labels} from "../constants/Labels";
