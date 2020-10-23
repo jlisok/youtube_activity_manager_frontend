@@ -19,7 +19,7 @@ export const SubscribedChannelsTable = (props) => {
                 </tr>
                 </thead>
                 <tbody>
-                {props.state.youtube[props.state.activityType.toLowerCase()].map((channel, index) =>
+                {props.state.arrays[props.state.activityType.toLowerCase()].map((channel, index) =>
                     <tr key={index}>
                         <td id="record">{index + 1}</td>
                         <td id="record" className="text-left">{channel.title}</td>
