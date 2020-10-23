@@ -5,10 +5,11 @@ import styled from "styled-components";
 import axios from "axios";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
-import {JsonObjectNames} from "./JsonObjectNames";
 
 import {handleErrors} from "../utils/handleErrors";
 import {StatsTable} from "./StatsTable";
+import {GroupingVariableStateNames} from "./GroupingVariableStateNames";
+import {JsonSelectVariableNames} from "./JsonSelectVariableNames";
 
 class Stats extends Component {
 
@@ -69,7 +70,7 @@ class Stats extends Component {
 
 
     retrieveApiEndPointUri = (groupingVariable) => {
-        return groupingVariable.includes(JsonObjectNames.BY_CREATOR) ? RestApiUrl.STATS_BY_CREATOR : RestApiUrl.STATS_BY_CATEGORY;
+        return groupingVariable.includes(GroupingVariableStateNames.BY_CREATOR) ? RestApiUrl.STATS_BY_CREATOR : RestApiUrl.STATS_BY_CATEGORY;
     }
 
 
@@ -104,9 +105,9 @@ class Stats extends Component {
                                 onChange={this.handleChange}
                             >
                                 <option value="" hidden>Open select menu</option>
-                                <option value={JsonObjectNames.JSON_NUMBER_VIDEOS}>number of videos</option>
-                                <option value={JsonObjectNames.JSON_AVERAGE_TIME}>video's average time</option>
-                                <option value={JsonObjectNames.JSON_TOTAL_TIME}>total time</option>
+                                <option value={JsonSelectVariableNames.JSON_NUMBER_VIDEOS}>number of videos</option>
+                                <option value={JsonSelectVariableNames.JSON_AVERAGE_TIME}>video's average time</option>
+                                <option value={JsonSelectVariableNames.JSON_TOTAL_TIME}>total time</option>
                             </select>
                         </Col>
                         <Col>
@@ -117,8 +118,8 @@ class Stats extends Component {
                                 onChange={this.handleChange}
                             >
                                 <option value="" hidden>Open select menu</option>
-                                <option value={JsonObjectNames.BY_CREATOR}>creator</option>
-                                <option value={JsonObjectNames.BY_CATEGORY}>category</option>
+                                <option value={GroupingVariableStateNames.BY_CREATOR}>creator</option>
+                                <option value={GroupingVariableStateNames.BY_CATEGORY}>category</option>
                             </select>
                         </Col>
                     </Row>
