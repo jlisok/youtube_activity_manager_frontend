@@ -10,6 +10,7 @@ import {Layout} from "./commons/Layout";
 import Dashboard from "./dashboard/Dashboard";
 import HomeWithRegistration from "./home/HomeWithRegistration";
 import YouTubeActivity from "./youtube/YouTubeActivity";
+import Stats from "./stats/Stats";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                             <Route exact path="/about" component={About}/>
                             <Route exact path="/dashboard" component={Dashboard}/>
                             <Route exact path="/youtube_activity" component={YouTubeActivity}/>
+                            <Route exact path="/stats" component={Stats}/>
                             <Route component={OpsSomethingWentWrong}/>
                         </Switch>
                     </BrowserRouter>

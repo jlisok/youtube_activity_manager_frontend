@@ -3,7 +3,6 @@ import {Table} from "react-bootstrap";
 import {parseDuration} from "../utils/parseDuration";
 import styled from "styled-components";
 
-//TODO: swap to channel title after finishing backend flow
 export const RatedVideosTable = (props) => {
 
     return (

@@ -6,5 +6,6 @@ export const RestApiUrl = {
     GOOGLE_LOGIN: environmentConfig.API_URL + "/api/v1/login/viaGoogle",
     SUBSCRIBED_CHANNELS: environmentConfig.API_URL + "/api/v1/youtube/channels",
     VIDEOS: environmentConfig.API_URL + "/api/v1/youtube/videos",
-
+    STATS_BY_CATEGORY: environmentConfig.API_URL + "/api/v1/statistics/category",
+    STATS_BY_CREATOR: environmentConfig.API_URL + "/api/v1/statistics/creator",
 }
