@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
+import {NavigationBar} from "./NavigationBar";
 
 
 class OpsSomethingWentWrong extends Component {
     render() {
         return (
-
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row>
                         <Col>

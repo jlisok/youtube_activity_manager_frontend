@@ -37,7 +37,6 @@ class LoginTraditionally extends Component {
 
     constructor(props) {
         super(props);
-        handleAuthentication(null, false, false);
     }
 
 

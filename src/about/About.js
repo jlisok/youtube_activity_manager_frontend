@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 import styled from "styled-components";
+import {NavigationBar} from "../commons/NavigationBar";
 
 class About extends Component {
     render() {
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row className="topRow">
                         <Image
@@ -44,34 +46,43 @@ class About extends Component {
                     <Row>
                         <a href="https://github.com/jlisok/youtube_activity_manager" target="_blank"
                            rel="noopener noreferrer">
-                            <img className="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-512.png" alt="GitHub logo"/>
+                            <img className="icon"
+                                 src="https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-512.png"
+                                 alt="GitHub logo"/>
                             GitHub: YouTube Activity Manager - Backend
                         </a>
                     </Row>
                     <Row>
                         <a href="https://github.com/jlisok/youtube_activity_manager_frontend" target="_blank"
                            rel="noopener noreferrer">
-                            <img className="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-512.png" alt="GitHub logo"/>
+                            <img className="icon"
+                                 src="https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-512.png"
+                                 alt="GitHub logo"/>
                             GitHub: YouTube Activity Manager - Frontend
                         </a>
                     </Row>
                     <Row>
                         <a href="https://github.com/jlisok/youtube_activity_manager_deployment" target="_blank"
                            rel="noopener noreferrer">
-                            <img className="icon" src="https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-512.png" alt="GitHub logo"/>
+                            <img className="icon"
+                                 src="https://cdn0.iconfinder.com/data/icons/octicons/1024/mark-github-512.png"
+                                 alt="GitHub logo"/>
                             GitHub: YouTube Activity Manager - Deployment
                         </a>
                     </Row>
                     <Row>
                         <a href="https://www.linkedin.com/in/justyna-lisok" target="_blank" rel="noopener noreferrer">
-                            <img className="icon" src="https://image.flaticon.com/icons/png/512/174/174857.png" alt="LinkedIn logo"/>
+                            <img className="icon" src="https://image.flaticon.com/icons/png/512/174/174857.png"
+                                 alt="LinkedIn logo"/>
                             LinkedIn: My Profile!
                         </a>
                     </Row>
                     <Row>
                         <a href="https://www.researchgate.net/profile/Justyna_Lisok" target="_blank"
                            rel="noopener noreferrer">
-                            <img className="icon" src="https://res-1.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1470150968/halqcskldv3ge9nkpjsq.png" alt="ResearchGate logo"/>
+                            <img className="icon"
+                                 src="https://res-1.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/v1470150968/halqcskldv3ge9nkpjsq.png"
+                                 alt="ResearchGate logo"/>
                             ResearchGate: My academic profile
                         </a>
                     </Row>
@@ -86,7 +97,9 @@ class About extends Component {
                     <Row>
                         <Col id="left">
                             <Row>
-                                <Image className="portrait" src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/black-white-alpaca.jpg" roundedCircle/>
+                                <Image className="portrait"
+                                       src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/black-white-alpaca.jpg"
+                                       roundedCircle/>
                             </Row>
                             <Row id="labeling">
                                 <label className="m-auto pt-2">"The Application"</label>
@@ -135,7 +148,9 @@ class About extends Component {
                     <Row>
                         <Col id="left">
                             <Row>
-                                <Image className="portrait" src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/jlisok.jpg" roundedCircle/>
+                                <Image className="portrait"
+                                       src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/jlisok.jpg"
+                                       roundedCircle/>
                             </Row>
                             <Row id="labeling">
                                 <label className="m-auto pt-2">Justyna</label>
@@ -181,7 +196,9 @@ class About extends Component {
                     <Row>
                         <Col id="left">
                             <Row>
-                                <Image className="portrait" src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/PBurcon.jpg" roundedCircle/>
+                                <Image className="portrait"
+                                       src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/PBurcon.jpg"
+                                       roundedCircle/>
                             </Row>
                             <Row id="labeling">
                                 <label className="m-auto pt-2">Przemek</label>

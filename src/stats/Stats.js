@@ -10,6 +10,7 @@ import {JsonSelectVariableNames} from "./JsonSelectVariableNames";
 import {handleErrors} from "../axios/handleErrors";
 import axios from "axios";
 import {handleAxiosResponse} from "../axios/handleAxiosResponse";
+import {NavigationBar} from "../commons/NavigationBar";
 
 
 class Stats extends Component {
@@ -26,7 +27,7 @@ class Stats extends Component {
 
     constructor(props) {
         super(props);
-        if (localStorage.getItem("authenticated") === "false") {
+        if (localStorage.getItem("authenticated") !== "true") {
             this.props.history.push("/")
         }
     }
@@ -74,6 +75,7 @@ class Stats extends Component {
         const {exception, selectVariable, groupingVariable} = this.state;
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row>
                         <p id="info" className="text-danger">

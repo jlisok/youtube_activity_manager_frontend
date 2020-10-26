@@ -3,12 +3,14 @@ import {Col, Container, Row} from "react-bootstrap";
 import {WelcomePage} from "../commons/WelcomePage";
 import styled from "styled-components";
 import LoginTraditionally from "../login/LoginTraditionally";
+import {NavigationBar} from "../commons/NavigationBar";
 
 export function HomeWithLogin() {
 
     return (
         <Styles>
             <Container>
+                <NavigationBar/>
                 <Row>
                     <Col className="main-section" lg={7}>
                         <WelcomePage/>

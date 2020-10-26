@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import {Row} from "react-bootstrap";
 import styled from "styled-components";
 import {DashboardPageContent} from "./DashboardPageContent";
+import {NavigationBar} from "../commons/NavigationBar";
 
 class Dashboard extends Component {
 
@@ -16,6 +17,7 @@ class Dashboard extends Component {
     render() {
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row className="justify-content-center">
                         <label htmlFor="youtubeActivityList"

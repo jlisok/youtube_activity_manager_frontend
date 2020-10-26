@@ -17,7 +17,7 @@ function App() {
         <div className="App">
             <React.Fragment>
                 <Layout>
-                    <NavigationBar/>
+                    {/*<NavigationBar/>*/}
                     <BrowserRouter>
                         <Switch>
                             <Route exact path="/" component={HomeWithLogin}/>
