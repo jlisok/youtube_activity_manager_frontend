@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {NavigationBar} from "./NavigationBar";
+import {environmentConfig} from "../environmentConfig";
 
 
 class ConstructionSite extends Component {
@@ -12,7 +13,7 @@ class ConstructionSite extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <Image src="https://d2xvpza2vzjrcj.cloudfront.net/hopping-alpaca.gif" roundedCircle
+                            <Image src={environmentConfig.STATIC_RESOURCE_URL + "/hopping-alpaca.gif"} roundedCircle
                                    width="300"/>
                         </Col>
                         <Col>

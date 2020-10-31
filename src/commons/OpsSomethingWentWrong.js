@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {NavigationBar} from "./NavigationBar";
+import {environmentConfig} from "../environmentConfig";
 
 
 class OpsSomethingWentWrong extends Component {
@@ -13,7 +14,7 @@ class OpsSomethingWentWrong extends Component {
                     <Row>
                         <Col>
                             <Image
-                                src="https://d2xvpza2vzjrcj.cloudfront.net/alpaca.gif"
+                                src={environmentConfig.STATIC_RESOURCE_URL + "/alpaca.gif"}
                                 roundedCircle width="300"/>
                         </Col>
                         <Col>

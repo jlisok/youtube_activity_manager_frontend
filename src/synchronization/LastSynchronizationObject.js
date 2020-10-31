@@ -1,12 +1,13 @@
 import {Row} from "react-bootstrap";
 import React from "react";
 import styled from "styled-components";
+import moment from "moment";
 
 export function LastSynchronizationObject(props) {
 
     const handleSynchronizationDateStamp = (props) => {
-        if (props.state.lastSynchronization.length > 0) {
-            return props.state.lastSynchronization.toString();
+        if (props.state.lastSynchronization instanceof moment) {
+            return props.state.lastSynchronization.fromNow();
         } else {
             return "never";
         }
