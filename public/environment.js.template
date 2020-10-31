@@ -1,2 +1,0 @@
-window.environment = {}
-window.environment.API_URL='${API_URL}'
