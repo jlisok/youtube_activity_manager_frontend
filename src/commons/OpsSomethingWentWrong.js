@@ -13,7 +13,7 @@ class OpsSomethingWentWrong extends Component {
                     <Row>
                         <Col>
                             <Image
-                                src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/alpaca.gif"
+                                src="https://d2xvpza2vzjrcj.cloudfront.net/alpaca.gif"
                                 roundedCircle width="300"/>
                         </Col>
                         <Col>

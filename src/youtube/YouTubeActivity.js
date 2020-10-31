@@ -9,6 +9,7 @@ import {handleErrors} from "../axios/handleErrors";
 import {YouTubeActivityTable} from "./YouTubeActivityTable";
 import {handleAxiosResponse} from "../axios/handleAxiosResponse";
 import {NavigationBar} from "../commons/NavigationBar";
+import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 
 class YouTubeActivity extends Component {
 
@@ -25,7 +26,7 @@ class YouTubeActivity extends Component {
 
     constructor(props) {
         super(props);
-        if (localStorage.getItem("authenticated") !== "true") {
+        if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
             this.props.history.push("/")
         }
     }
@@ -49,7 +50,7 @@ class YouTubeActivity extends Component {
             .get(ApiUri, {
                 params: {rating: state.activityType},
                 headers: {
-                    Authorization: "Bearer: " + localStorage.getItem("token"),
+                    Authorization: "Bearer: " + localStorage.getItem(LocalStorageItemNames.TOKEN),
                 }
             })
             .then(response => {

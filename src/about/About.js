@@ -11,7 +11,7 @@ class About extends Component {
                 <Container>
                     <Row className="topRow">
                         <Image
-                            src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/alpaca.gif"
+                            src="https://d2xvpza2vzjrcj.cloudfront.net/alpaca.gif"
                             roundedCircle width="300"/>
                     </Row>
 
@@ -98,7 +98,7 @@ class About extends Component {
                         <Col id="left">
                             <Row>
                                 <Image className="portrait"
-                                       src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/black-white-alpaca.jpg"
+                                       src="https://d2xvpza2vzjrcj.cloudfront.net/black-white-alpaca.jpg"
                                        roundedCircle/>
                             </Row>
                             <Row id="labeling">
@@ -149,7 +149,7 @@ class About extends Component {
                         <Col id="left">
                             <Row>
                                 <Image className="portrait"
-                                       src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/jlisok.jpg"
+                                       src="https://d2xvpza2vzjrcj.cloudfront.net/jlisok.jpg"
                                        roundedCircle/>
                             </Row>
                             <Row id="labeling">
@@ -197,7 +197,7 @@ class About extends Component {
                         <Col id="left">
                             <Row>
                                 <Image className="portrait"
-                                       src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/PBurcon.jpg"
+                                       src="https://d2xvpza2vzjrcj.cloudfront.net/PBurcon.jpg"
                                        roundedCircle/>
                             </Row>
                             <Row id="labeling">

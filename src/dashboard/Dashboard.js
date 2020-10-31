@@ -4,12 +4,13 @@ import {Row} from "react-bootstrap";
 import styled from "styled-components";
 import {DashboardPageContent} from "./DashboardPageContent";
 import {NavigationBar} from "../commons/NavigationBar";
+import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 
 class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        if (localStorage.getItem("authenticated") !== "true") {
+        if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
             this.props.history.push("/")
         }
     }

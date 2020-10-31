@@ -2,14 +2,15 @@ import React, {useState} from 'react';
 import {Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
 import {handleAuthentication} from "../authentication/handleAuthentication";
+import {LocalStorageItemNames} from "./LocalStorageItemNames";
 
 export let NavigationBar = () => {
 
-    let [ifAuthenticated, setIfAuthenticated] = useState(localStorage.getItem("authenticated"));
+    let [ifAuthenticated, setIfAuthenticated] = useState(localStorage.getItem(LocalStorageItemNames.AUTHENTICATED));
 
     let handleLogOut = () => {
         handleAuthentication(null, "false", "false");
-        setIfAuthenticated(localStorage.getItem("authenticated"))
+        setIfAuthenticated(localStorage.getItem(LocalStorageItemNames.AUTHENTICATED))
     }
 
     return (
