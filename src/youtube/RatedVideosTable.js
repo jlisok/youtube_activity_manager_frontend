@@ -18,7 +18,7 @@ export const RatedVideosTable = (props) => {
                 </tr>
                 </thead>
                 <tbody>
-                {props.state.youtube[props.state.activityType.toLowerCase()].map((video, index) =>
+                {props.state.arrays[props.state.activityType.toLowerCase()].map((video, index) =>
                     <tr key={index}>
                         <td id="record" className="text-center">{index + 1}</td>
                         <td id="record" className="text-left w-50">{video.title}</td>

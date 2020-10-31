@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
 import styled from "styled-components";
-import axios from "axios";
 import {RestApiUrl} from "../constants/RestApiUrl";
-import {UserHttpResponse} from "../constants/UserHttpResponse";
-
-import {handleErrors} from "../utils/handleErrors";
 import {StatsTable} from "./StatsTable";
+import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {GroupingVariableStateNames} from "./GroupingVariableStateNames";
 import {JsonSelectVariableNames} from "./JsonSelectVariableNames";
+import {handleErrors} from "../axios/handleErrors";
+import axios from "axios";
+import {handleAxiosResponse} from "../axios/handleAxiosResponse";
+
 
 class Stats extends Component {
 
@@ -52,20 +53,15 @@ class Stats extends Component {
                 }
             })
             .then(response => {
-                if (response.data !== null) {
-                    const listName = state.groupingVariable;
-                    state.arrays[listName] = response.data;
-                } else {
-                    state["exception"] = UserHttpResponse.UNKNOWN_EVENT;
-                }
+                const arrayName = state.groupingVariable;
+                state = handleAxiosResponse(response, state, arrayName);
             })
             .catch(error => {
                 state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
             })
             .finally(() => {
-                    this.setState({state});
-                }
-            )
+                this.setState({state});
+            })
     }
 
 

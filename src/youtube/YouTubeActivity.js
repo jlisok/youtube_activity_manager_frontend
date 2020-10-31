@@ -5,15 +5,16 @@ import styled from "styled-components";
 import axios from "axios";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
-import {handleErrors} from "../utils/handleErrors";
+import {handleErrors} from "../axios/handleErrors";
 import {YouTubeActivityTable} from "./YouTubeActivityTable";
+import {handleAxiosResponse} from "../axios/handleAxiosResponse";
 
 class YouTubeActivity extends Component {
 
     state = {
         activityType: "",
         exception: "",
-        youtube: {
+        arrays: {
             channels: "",
             like: "",
             dislike: "",
@@ -33,7 +34,7 @@ class YouTubeActivity extends Component {
         const state = this.state;
         const {name, value} = event.target;
         state[name] = value;
-        if (value.length > 0 && state.youtube[value.toLowerCase()].length === 0) {
+        if (value.length > 0 && state.arrays[value.toLowerCase()].length === 0) {
             this.handleHttpRequest(state);
         } else {
             this.setState({state});
@@ -51,13 +52,8 @@ class YouTubeActivity extends Component {
                 }
             })
             .then(response => {
-                if (response.data !== null) {
-                    const listName = state.activityType.toLowerCase();
-                    state.youtube[listName] = response.data;
-                    this.setState({state});
-                } else {
-                    state["exception"] = UserHttpResponse.UNKNOWN_EVENT;
-                }
+                const arrayName = state.activityType.toLowerCase();
+                state = handleAxiosResponse(response, state, arrayName);
             })
             .catch(error => {
                 state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
