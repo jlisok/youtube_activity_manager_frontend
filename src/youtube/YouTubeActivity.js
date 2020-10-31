@@ -8,26 +8,36 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {YouTubeActivityTable} from "./YouTubeActivityTable";
 import {handleAxiosResponse} from "../axios/handleAxiosResponse";
+import {NavigationBar} from "../commons/NavigationBar";
+import {JsonYouTubeActivityVariableNames} from "./JsonYouTubeActivityVariableNames";
+import {handleAxiosSynchronizationResponse} from "../axios/handleAxiosSynchronizationResponse";
+import {LastSynchronizationObject} from "../synchronization/LastSynchronizationObject";
+import {Labels} from "../constants/Labels";
+import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 
 class YouTubeActivity extends Component {
 
     state = {
+        lastSynchronization: "",
         activityType: "",
         exception: "",
         arrays: {
             channels: "",
             like: "",
             dislike: "",
+            status: "",
+            statusCreatedAt: ""
         },
     }
 
 
-    constructor(props) {
-        super(props);
-        if (localStorage.getItem("authenticated") === "false") {
+    componentDidMount() {
+        if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
             this.props.history.push("/")
         }
+        this.handleGettingSynchronizationStatus(this.state);
     }
+
 
     handleChange = event => {
         event.preventDefault();
@@ -42,18 +52,38 @@ class YouTubeActivity extends Component {
     };
 
 
+    handleGettingSynchronizationStatus = (state) => {
+        axios
+            .get(RestApiUrl.SUCCESSFUL_SYNCHRONIZATION, {
+                headers: {
+                    Authorization: "Bearer: " + localStorage.getItem("token"),
+                }
+            })
+            .then(response => {
+                state = handleAxiosSynchronizationResponse(response, state);
+            })
+            .catch(error => {
+                state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
+            })
+            .finally(() => {
+                    this.setState({state});
+                }
+            )
+    }
+
+
     handleHttpRequest = (state) => {
         const ApiUri = this.retrieveApiEndPointUri(state.activityType);
         axios
             .get(ApiUri, {
                 params: {rating: state.activityType},
                 headers: {
-                    Authorization: "Bearer: " + localStorage.getItem("token"),
+                    Authorization: "Bearer: " + localStorage.getItem(LocalStorageItemNames.TOKEN),
                 }
             })
             .then(response => {
                 const arrayName = state.activityType.toLowerCase();
-                state = handleAxiosResponse(response, state, arrayName);
+                state = handleAxiosResponse(response, state, arrayName, JsonYouTubeActivityVariableNames);
             })
             .catch(error => {
                 state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
@@ -74,7 +104,11 @@ class YouTubeActivity extends Component {
         const {exception, activityType} = this.state;
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
+                    <LastSynchronizationObject
+                        state={this.state}
+                    />
                     <Row>
                         <label id="info" className="text-danger">
                             {exception}
@@ -83,7 +117,6 @@ class YouTubeActivity extends Component {
                                className="text"
                         >Show me my YouTube activity details</label>
                     </Row>
-
                     <Row>
                         <select
                             id="activityType"
@@ -96,6 +129,9 @@ class YouTubeActivity extends Component {
                             <option value="LIKE">liked videos</option>
                             <option value="DISLIKE">disliked videos</option>
                         </select>
+                    </Row>
+                    <Row>
+                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_IN_PROGRESS : ""}
                     </Row>
                     <Row>
                         {activityType.length > 0 ? <YouTubeActivityTable
@@ -114,7 +150,7 @@ const Styles = styled.div`
     align-content: center;
     justify-content: center;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 5px;
  }
 

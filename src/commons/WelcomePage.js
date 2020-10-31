@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from "styled-components";
 import {Container, Image, Row} from "react-bootstrap";
+import {environmentConfig} from "../environmentConfig";
 
 
 export const WelcomePage = () => (
     <Styles>
         <Container>
             <Row>
-                <Image src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/hopping-alpaca.gif" roundedCircle
+                <Image src={environmentConfig.STATIC_RESOURCE_URL + "/hopping-alpaca.gif"} roundedCircle
                        width="150"/>
             </Row>
             <Row>

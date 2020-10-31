@@ -5,7 +5,7 @@ import {NavigationBar} from "./NavigationBar";
 import {environmentConfig} from "../environmentConfig";
 
 
-class OpsSomethingWentWrong extends Component {
+class ConstructionSite extends Component {
     render() {
         return (
             <Styles>
@@ -13,14 +13,12 @@ class OpsSomethingWentWrong extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <Image
-                                src={environmentConfig.STATIC_RESOURCE_URL + "/alpaca.gif"}
-                                roundedCircle width="300"/>
+                            <Image src={environmentConfig.STATIC_RESOURCE_URL + "/hopping-alpaca.gif"} roundedCircle
+                                   width="300"/>
                         </Col>
                         <Col>
-                            <h1>Oops!</h1>
-                            <br/>
-                            <h2>Something went wrong!</h2>
+                            <h2>Well,</h2>
+                            <h2>this site is still under construction.</h2>
                         </Col>
                     </Row>
                 </Container>
@@ -62,4 +60,4 @@ img {
 }
 `;
 
-export default OpsSomethingWentWrong;
+export default ConstructionSite;

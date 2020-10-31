@@ -1,4 +1,5 @@
 export const JsonGroupingVariableNames = {
     GROUP_BY_CREATOR: "creatorName",
-    GROUP_BY_CATEGORY: "categoryName"
+    GROUP_BY_CATEGORY: "categoryName",
+    LIST_NAME: "statistics"
 }

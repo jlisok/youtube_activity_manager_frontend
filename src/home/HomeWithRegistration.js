@@ -3,6 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import {WelcomePage} from "../commons/WelcomePage";
 import SignUpTraditionally from "../signup-traditionally/SignUpTraditionally";
 import styled from "styled-components";
+import {NavigationBar} from "../commons/NavigationBar";
 
 class HomeWithRegistration extends Component {
 
@@ -10,6 +11,7 @@ class HomeWithRegistration extends Component {
     render() {
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row>
                         <Col className="main-section" lg={7}>
