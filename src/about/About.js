@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {NavigationBar} from "../commons/NavigationBar";
+import {environmentConfig} from "../environmentConfig";
 
 class About extends Component {
     render() {
@@ -11,7 +12,7 @@ class About extends Component {
                 <Container>
                     <Row className="topRow">
                         <Image
-                            src="https://d2xvpza2vzjrcj.cloudfront.net/alpaca.gif"
+                            src={environmentConfig.STATIC_RESOURCE_URL + "/alpaca.gif"}
                             roundedCircle width="300"/>
                     </Row>
 
@@ -98,7 +99,7 @@ class About extends Component {
                         <Col id="left">
                             <Row>
                                 <Image className="portrait"
-                                       src="https://d2xvpza2vzjrcj.cloudfront.net/black-white-alpaca.jpg"
+                                       src={environmentConfig.STATIC_RESOURCE_URL + "/black-white-alpaca.jpg"}
                                        roundedCircle/>
                             </Row>
                             <Row id="labeling">
@@ -149,7 +150,7 @@ class About extends Component {
                         <Col id="left">
                             <Row>
                                 <Image className="portrait"
-                                       src="https://d2xvpza2vzjrcj.cloudfront.net/jlisok.jpg"
+                                       src={environmentConfig.STATIC_RESOURCE_URL + "/jlisok.jpg"}
                                        roundedCircle/>
                             </Row>
                             <Row id="labeling">
@@ -197,7 +198,7 @@ class About extends Component {
                         <Col id="left">
                             <Row>
                                 <Image className="portrait"
-                                       src="https://d2xvpza2vzjrcj.cloudfront.net/PBurcon.jpg"
+                                       src={environmentConfig.STATIC_RESOURCE_URL + "/PBurcon.jpg"}
                                        roundedCircle/>
                             </Row>
                             <Row id="labeling">

@@ -35,10 +35,6 @@ class LoginTraditionally extends Component {
         },
     }
 
-    constructor(props) {
-        super(props);
-    }
-
 
     handleChange = event => {
         event.preventDefault();

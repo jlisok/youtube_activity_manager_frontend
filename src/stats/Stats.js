@@ -11,26 +11,34 @@ import {handleErrors} from "../axios/handleErrors";
 import axios from "axios";
 import {handleAxiosResponse} from "../axios/handleAxiosResponse";
 import {NavigationBar} from "../commons/NavigationBar";
+import {JsonGroupingVariableNames} from "./JsonGroupingVariableNames";
+import {LastSynchronizationObject} from "../synchronization/LastSynchronizationObject";
+import {handleAxiosSynchronizationResponse} from "../axios/handleAxiosSynchronizationResponse";
+import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 
 
 class Stats extends Component {
 
     state = {
+        lastSynchronization: "",
         selectVariable: "",
         groupingVariable: "",
         exception: "",
         arrays: {
             byCreator: "",
             byCategory: "",
+            status: "",
+            statusCreatedAt: ""
         },
     }
 
-    constructor(props) {
-        super(props);
+
+    componentDidMount() {
         if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
             this.props.history.push("/")
         }
+        this.handleGettingSynchronizationStatus(this.state);
     }
 
     handleChange = event => {
@@ -46,6 +54,26 @@ class Stats extends Component {
     };
 
 
+    handleGettingSynchronizationStatus = (state) => {
+        axios
+            .get(RestApiUrl.SUCCESSFUL_SYNCHRONIZATION, {
+                headers: {
+                    Authorization: "Bearer: " + localStorage.getItem("token"),
+                }
+            })
+            .then(response => {
+                state = handleAxiosSynchronizationResponse(response, state);
+            })
+            .catch(error => {
+                state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
+            })
+            .finally(() => {
+                    this.setState({state});
+                }
+            )
+    }
+
+
     handleHttpRequest = (state) => {
         const endPointUri = this.retrieveApiEndPointUri(state.groupingVariable);
         axios
@@ -56,7 +84,7 @@ class Stats extends Component {
             })
             .then(response => {
                 const arrayName = state.groupingVariable;
-                state = handleAxiosResponse(response, state, arrayName);
+                state = handleAxiosResponse(response, state, arrayName, JsonGroupingVariableNames);
             })
             .catch(error => {
                 state["exception"] = handleErrors(error, UserHttpResponse.UNKNOWN_EVENT, UserHttpResponse.UNKNOWN_EVENT);
@@ -78,6 +106,9 @@ class Stats extends Component {
             <Styles>
                 <NavigationBar/>
                 <Container>
+                    <LastSynchronizationObject
+                        state={this.state}
+                    />
                     <Row>
                         <p id="info" className="text-danger">
                             {exception}
@@ -122,7 +153,9 @@ class Stats extends Component {
                             </select>
                         </Col>
                     </Row>
-
+                    <Row>
+                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_IN_PROGRESS : ""}
+                    </Row>
                     <Row>
                         {selectVariable.length > 0 && groupingVariable.length > 0 ?
                             <StatsTable
@@ -148,7 +181,7 @@ const Styles = styled.div`
 .text {
     font-weight: bold;
     font-size: 25px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 #info.text {

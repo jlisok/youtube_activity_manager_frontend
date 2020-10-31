@@ -1,8 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-
-import {NavigationBar} from "./commons/NavigationBar";
 import About from "./about/About";
 import HomeWithLogin from "./home/HomeWithLogin";
 import OpsSomethingWentWrong from "./commons/OpsSomethingWentWrong";
@@ -11,13 +9,13 @@ import Dashboard from "./dashboard/Dashboard";
 import HomeWithRegistration from "./home/HomeWithRegistration";
 import YouTubeActivity from "./youtube/YouTubeActivity";
 import Stats from "./stats/Stats";
+import ConstructionSite from "./commons/ConstructionSite";
 
 function App() {
     return (
         <div className="App">
             <React.Fragment>
                 <Layout>
-                    {/*<NavigationBar/>*/}
                     <BrowserRouter>
                         <Switch>
                             <Route exact path="/" component={HomeWithLogin}/>
@@ -27,6 +25,7 @@ function App() {
                             <Route exact path="/dashboard" component={Dashboard}/>
                             <Route exact path="/youtube_activity" component={YouTubeActivity}/>
                             <Route exact path="/stats" component={Stats}/>
+                            <Route exact path="/suggestions" component={ConstructionSite}/>
                             <Route component={OpsSomethingWentWrong}/>
                         </Switch>
                     </BrowserRouter>

@@ -13,6 +13,7 @@ export const RatedVideosTable = (props) => {
                     <th id="record">No</th>
                     <th id="record">Video title</th>
                     <th id="record">Channel name</th>
+                    <th id="record">Video category</th>
                     <th id="record">Duration</th>
                     <th id="record">Published at</th>
                 </tr>
@@ -23,6 +24,7 @@ export const RatedVideosTable = (props) => {
                         <td id="record" className="text-center">{index + 1}</td>
                         <td id="record" className="text-left w-50">{video.title}</td>
                         <td id="record" className="text-left">{video.channelTitle}</td>
+                        <td id="record" className="text-left">{video.videoCategory}</td>
                         <td id="record" className="text-center">{parseDuration(video.duration)}</td>
                         <td id="record" className="text-center">{video.publishedAt.substring(0, 10)}</td>
                     </tr>
