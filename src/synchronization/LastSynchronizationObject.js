@@ -6,7 +6,7 @@ export function LastSynchronizationObject(props) {
 
     const handleSynchronizationDateStamp = (props) => {
         if (props.state.lastSynchronization.length > 0) {
-            return props.state.lastSynchronization + " UTC";
+            return props.state.lastSynchronization.toString();
         } else {
             return "never";
         }

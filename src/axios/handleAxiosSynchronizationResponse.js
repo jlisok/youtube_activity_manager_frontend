@@ -1,8 +1,9 @@
 import {UserHttpResponse} from "../constants/UserHttpResponse";
+import moment from "moment";
 
 export const handleAxiosSynchronizationResponse = (response, state) => {
     if (response.data !== null) {
-        state.lastSynchronization = response.data.substring(0, 10) + " " + response.data.substring(11, 16);
+        state.lastSynchronization = moment(response.data).fromNow();
     } else {
         state["exception"] = UserHttpResponse.UNKNOWN_EVENT;
     }
