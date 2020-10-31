@@ -8,6 +8,8 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {YouTubeActivityTable} from "./YouTubeActivityTable";
 import {handleAxiosResponse} from "../axios/handleAxiosResponse";
+import {NavigationBar} from "../commons/NavigationBar";
+import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 
 class YouTubeActivity extends Component {
 
@@ -24,7 +26,7 @@ class YouTubeActivity extends Component {
 
     constructor(props) {
         super(props);
-        if (localStorage.getItem("authenticated") === "false") {
+        if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
             this.props.history.push("/")
         }
     }
@@ -48,7 +50,7 @@ class YouTubeActivity extends Component {
             .get(ApiUri, {
                 params: {rating: state.activityType},
                 headers: {
-                    Authorization: "Bearer: " + localStorage.getItem("token"),
+                    Authorization: "Bearer: " + localStorage.getItem(LocalStorageItemNames.TOKEN),
                 }
             })
             .then(response => {
@@ -74,6 +76,7 @@ class YouTubeActivity extends Component {
         const {exception, activityType} = this.state;
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row>
                         <label id="info" className="text-danger">

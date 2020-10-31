@@ -34,9 +34,9 @@ function LoginWithGoogle() {
             .post(RestApiUrl.GOOGLE_LOGIN, googleResponse)
             .then(response => {
                 if (response.data !== null) {
-                    handleAuthentication(response.data, true, true);
+                    handleAuthentication(response.data, "true", "true");
                 } else {
-                    handleAuthentication(undefined, false, false);
+                    handleAuthentication(undefined, "false", "false");
                     setBadRequest(UserHttpResponse.AUTHENTICATION_FAILED);
                 }
             })

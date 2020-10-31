@@ -10,6 +10,8 @@ import {JsonSelectVariableNames} from "./JsonSelectVariableNames";
 import {handleErrors} from "../axios/handleErrors";
 import axios from "axios";
 import {handleAxiosResponse} from "../axios/handleAxiosResponse";
+import {NavigationBar} from "../commons/NavigationBar";
+import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 
 
 class Stats extends Component {
@@ -26,7 +28,7 @@ class Stats extends Component {
 
     constructor(props) {
         super(props);
-        if (localStorage.getItem("authenticated") === "false") {
+        if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
             this.props.history.push("/")
         }
     }
@@ -49,7 +51,7 @@ class Stats extends Component {
         axios
             .get(endPointUri, {
                 headers: {
-                    Authorization: "Bearer: " + localStorage.getItem("token"),
+                    Authorization: "Bearer: " + localStorage.getItem(LocalStorageItemNames.TOKEN),
                 }
             })
             .then(response => {
@@ -74,6 +76,7 @@ class Stats extends Component {
         const {exception, selectVariable, groupingVariable} = this.state;
         return (
             <Styles>
+                <NavigationBar/>
                 <Container>
                     <Row>
                         <p id="info" className="text-danger">

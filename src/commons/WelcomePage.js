@@ -7,7 +7,7 @@ export const WelcomePage = () => (
     <Styles>
         <Container>
             <Row>
-                <Image src="https://s3.eu-central-1.amazonaws.com/com.justyna.lisok.static/hopping-alpaca.gif" roundedCircle
+                <Image src="https://d2xvpza2vzjrcj.cloudfront.net/hopping-alpaca.gif" roundedCircle
                        width="150"/>
             </Row>
             <Row>
