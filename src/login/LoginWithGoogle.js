@@ -4,10 +4,11 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {RestApiUrl} from "../constants/RestApiUrl";
-import {handleAuthentication} from "../authentication/handleAuthentication";
 import {handleErrors} from "../axios/handleErrors";
 import {GoogleConstants} from "../constants/GoogleConstants";
 import {Time} from "../constants/Time";
+import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
+import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
 
 function LoginWithGoogle() {
 
@@ -34,9 +35,9 @@ function LoginWithGoogle() {
             .post(RestApiUrl.GOOGLE_LOGIN, googleResponse)
             .then(response => {
                 if (response.data !== null) {
-                    handleAuthentication(response.data, "true", "true");
+                    JwtDecodingAndAuthentication(response.data);
                 } else {
-                    handleAuthentication(undefined, "false", "false");
+                    setCredentialsForUnauthenticatedUser();
                     setBadRequest(UserHttpResponse.AUTHENTICATION_FAILED);
                 }
             })

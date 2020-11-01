@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import axios from 'axios';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {setDidBlur} from "../utils/setDidBlur";
@@ -12,10 +11,13 @@ import {withRouter} from "react-router-dom";
 import {validateSignUpFields} from "./validateSignUpFields";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {Labels} from "../constants/Labels";
-import {UserHttpResponse} from "../constants/UserHttpResponse";
-import {handleAuthentication} from "../authentication/handleAuthentication";
-import {handleErrors} from "../axios/handleErrors";
 import {Time} from "../constants/Time";
+import axios from "axios";
+import {UserHttpResponse} from "../constants/UserHttpResponse";
+import {handleErrors} from "../axios/handleErrors";
+import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
+import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
+import {checkIfUserStillAuthenticated} from "../authentication/checkIfUserStillAuthenticated";
 
 class SignUpTraditionally extends Component {
 
@@ -57,6 +59,10 @@ class SignUpTraditionally extends Component {
 
     }
 
+    componentDidMount() {
+        checkIfUserStillAuthenticated();
+    }
+
 
     handleChange = event => {
         event.preventDefault();
@@ -96,9 +102,9 @@ class SignUpTraditionally extends Component {
             .post(RestApiUrl.REGISTRATION, this.state)
             .then(response => {
                 if (response.data !== null) {
-                    handleAuthentication(response.data, true, false);
+                    JwtDecodingAndAuthentication(response.data);
                 } else {
-                    handleAuthentication(null, false, false);
+                    setCredentialsForUnauthenticatedUser();
                     errors.badRequest = UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR;
                 }
             })
