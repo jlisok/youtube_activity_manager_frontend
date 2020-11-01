@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from 'axios';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {setDidBlur} from "../utils/setDidBlur";
@@ -12,7 +13,6 @@ import {validateSignUpFields} from "./validateSignUpFields";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {Labels} from "../constants/Labels";
 import {Time} from "../constants/Time";
-import axios from "axios";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
@@ -58,6 +58,7 @@ class SignUpTraditionally extends Component {
         },
 
     }
+
 
     constructor(props) {
         super(props);

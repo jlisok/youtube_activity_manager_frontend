@@ -4,13 +4,13 @@ import {Row} from "react-bootstrap";
 import styled from "styled-components";
 import {DashboardPageContent} from "./DashboardPageContent";
 import {NavigationBar} from "../commons/NavigationBar";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
+import {checkIfUserStillAuthenticated} from "../authentication/checkIfUserStillAuthenticated";
 
 class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        IfUserStillAuthenticated(props);
+        checkIfUserStillAuthenticated();
     }
 
     render() {

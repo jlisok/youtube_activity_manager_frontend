@@ -14,7 +14,7 @@ import {handleAxiosSynchronizationResponse} from "../axios/handleAxiosSynchroniz
 import {LastSynchronizationObject} from "../synchronization/LastSynchronizationObject";
 import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
+import {checkIfUserStillAuthenticated} from "../authentication/checkIfUserStillAuthenticated";
 
 class YouTubeActivity extends Component {
 
@@ -32,9 +32,8 @@ class YouTubeActivity extends Component {
     }
 
 
-    constructor(props) {
-        super(props);
-        IfUserStillAuthenticated(props);
+    componentDidMount() {
+        checkIfUserStillAuthenticated();
         this.handleGettingSynchronizationStatus(this.state);
     }
 
