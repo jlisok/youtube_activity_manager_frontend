@@ -17,7 +17,7 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
-import {checkIfUserStillAuthenticated} from "../authentication/checkIfUserStillAuthenticated";
+import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 class SignUpTraditionally extends Component {
 
@@ -59,8 +59,9 @@ class SignUpTraditionally extends Component {
 
     }
 
-    componentDidMount() {
-        checkIfUserStillAuthenticated();
+    constructor(props) {
+        super(props);
+        IfUserStillAuthenticated(props);
     }
 
 
