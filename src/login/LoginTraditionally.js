@@ -15,7 +15,7 @@ import {Labels} from "../constants/Labels";
 import {Time} from "../constants/Time";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
-import {checkIfUserStillAuthenticated} from "../authentication/checkIfUserStillAuthenticated";
+import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 
 class LoginTraditionally extends Component {
@@ -38,8 +38,9 @@ class LoginTraditionally extends Component {
     }
 
 
-    componentDidMount() {
-        checkIfUserStillAuthenticated();
+    constructor(props) {
+        super(props);
+        IfUserStillAuthenticated(props);
     }
 
 
