@@ -14,7 +14,8 @@ import {handleAxiosSynchronizationResponse} from "../axios/handleAxiosSynchroniz
 import {LastSynchronizationObject} from "../synchronization/LastSynchronizationObject";
 import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
+import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
+import {checkIfUserAuthenticated} from "../authentication/checkIfUserAuthenticated";
 
 class YouTubeActivity extends Component {
 
@@ -34,8 +35,12 @@ class YouTubeActivity extends Component {
 
     constructor(props) {
         super(props);
-        IfUserStillAuthenticated(props);
-        this.handleGettingSynchronizationStatus(this.state);
+        checkIfUserAuthenticated(props);
+        checkIfTokenValid(props);
+    }
+
+    componentDidMount() {
+        this.getSynchronizationStatus(this.state);
     }
 
 
@@ -52,7 +57,7 @@ class YouTubeActivity extends Component {
     };
 
 
-    handleGettingSynchronizationStatus = (state) => {
+    getSynchronizationStatus = (state) => {
         axios
             .get(RestApiUrl.SUCCESSFUL_SYNCHRONIZATION, {
                 headers: {
@@ -113,9 +118,8 @@ class YouTubeActivity extends Component {
                         <label id="info" className="text-danger">
                             {exception}
                         </label>
-                        <label htmlFor="youtubeActivityList"
-                               className="text"
-                        >Show me my YouTube activity details</label>
+                        <p className="text"
+                        >Show me my YouTube activity details</p>
                     </Row>
                     <Row>
                         <select
@@ -131,7 +135,7 @@ class YouTubeActivity extends Component {
                         </select>
                     </Row>
                     <Row>
-                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_IN_PROGRESS : ""}
+                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_STILL_IN_PROGRESS : ""}
                     </Row>
                     <Row>
                         {activityType.length > 0 ? <YouTubeActivityTable
@@ -150,18 +154,15 @@ const Styles = styled.div`
     align-content: center;
     justify-content: center;
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin: auto;
  }
 
 .text {
-    width: 100%;
-    height: auto;
-    line-height: 40px;
     font-weight: bold;
-    margin-top: 10px;
     font-size: 25px;
+    margin-top: 30px;
 }
+
 
 #info.text {
     line-height: 40px;
@@ -172,7 +173,6 @@ const Styles = styled.div`
 .form-control {
     max-width: 440px;
     margin-bottom: 15px;
-
 }
 `;
 

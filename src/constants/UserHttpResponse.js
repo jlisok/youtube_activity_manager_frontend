@@ -6,14 +6,14 @@ export const UserHttpResponse = {
 
     LOGIN_FAILED_PARAMETERS_DO_NOT_MATCH_DATABASE: "Login or password is incorrect. Please, try again.",
 
-    LOGIN_FAILED_GOOGLE_ACCOUNT_ALREADY_EXISTS: "Ops, something went wrong with your authentication, try again.",
-    LOGIN_FAILED_GOOGLE_TOKEN_INVALID: "Ops, something went wrong with your authentication, try again.",
-    LOGIN_FAILED_EMAIL_NOT_VERIFIED: "Ops, something went wrong with your authentication, try again.",
+    LOGIN_FAILED_GOOGLE_ACCOUNT_ALREADY_EXISTS: "You cannot link already existing google account.",
+    LOGIN_FAILED_GOOGLE_TOKEN_INVALID: "Login failed. Google token is invalid.",
+    LOGIN_FAILED_EMAIL_NOT_VERIFIED: "Your google account is not verified.",
 
     YOUTUBE_API_REQUEST_FAILED_ACCESS_TOKEN_FAILURE: "YouTube communication failed. Your authentication credentials are invalid.",
     YOUTUBE_API_REQUEST_FAILED_INVALID_REQUEST: "YouTube communication failed. Invalid request.",
 
     AUTHENTICATION_FAILED: "Ops, something went wrong with your authentication, try again.",
-
+    AUTHORIZATION_FAILED_USER_NOT_FOUND: "Authorization failed. Your account doesn't exist.",
     UNKNOWN_EVENT: "Ops, something went wrong with our application, please try again."
 }

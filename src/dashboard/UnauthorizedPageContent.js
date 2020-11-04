@@ -2,7 +2,8 @@ import Container from "react-bootstrap/Container";
 import {Row} from "react-bootstrap";
 import styled from "styled-components";
 import React from "react";
-import LoginWithGoogle from "../login/LoginWithGoogle";
+import AuthorizeWithGoogle from "../login/AuthorizeWithGoogle";
+import {RestApiUrl} from "../constants/RestApiUrl";
 
 
 export function UnauthorizedPageContent() {
@@ -19,8 +20,11 @@ export function UnauthorizedPageContent() {
                         YouTube Activity Manager!
                     </label>
                 </Row>
-                <Row>
-                    <LoginWithGoogle/>
+                <Row id="google" className="d-flex flex-column-reverse">
+                    <AuthorizeWithGoogle
+                        endPointUrl={RestApiUrl.GOOGLE_AUTHORIZATION}
+                        googleButtonText={"Synchronize now!"}
+                    />
                 </Row>
             </Container>
         </Styles>
@@ -38,6 +42,12 @@ const Styles = styled.div`
     width: 100%;
     text-align: center;
     justify-content: center;
+ }
+ 
+ #google.row {
+    width: 100%;
+    margin-top: 45px;
+    padding-right: 23%;
  }
  
  .col {

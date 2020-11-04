@@ -3,7 +3,7 @@ import axios from "axios";
 import {Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.css';
-import LoginWithGoogle from "./LoginWithGoogle";
+import AuthorizeWithGoogle from "./AuthorizeWithGoogle";
 import {setDidBlur} from "../utils/setDidBlur";
 import {countErrors} from "../utils/countErrors";
 import {handleStylesChangeOnValidation} from "../utils/handleStylesChangeOnValidation";
@@ -15,7 +15,6 @@ import {Labels} from "../constants/Labels";
 import {Time} from "../constants/Time";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 
 class LoginTraditionally extends Component {
@@ -35,12 +34,6 @@ class LoginTraditionally extends Component {
             email: false,
             password: false
         },
-    }
-
-
-    constructor(props) {
-        super(props);
-        IfUserStillAuthenticated(props);
     }
 
 
@@ -142,13 +135,14 @@ class LoginTraditionally extends Component {
                 <Container>
                     <form noValidate>
                         <Row id="vertical-space">
-                            <LoginWithGoogle/>
+                            <AuthorizeWithGoogle
+                                endPointUrl={RestApiUrl.GOOGLE_LOGIN}
+                                googleButtonText={"Sign in with Google"}
+                            />
                         </Row>
-                        <Row>
-                            <div className="text-danger">
-                                {errors.badRequest}
-                            </div>
-                        </Row>
+                        <div className="text-danger text-center p-3">
+                            {errors.badRequest}
+                        </div>
                         <Row id="vertical-space">
                             <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
                         </Row>
@@ -242,7 +236,6 @@ const Styles = styled.div`
     margin: auto;
     text-align: left;
     justify-content: left;
-    padding: 0px;
  }
  
  #signUpHelp.row {
@@ -260,8 +253,7 @@ const Styles = styled.div`
  
  #vertical-space.row {
     justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
  }
  
  .btn {

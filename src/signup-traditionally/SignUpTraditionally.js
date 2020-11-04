@@ -6,7 +6,7 @@ import {setDidBlur} from "../utils/setDidBlur";
 import {countErrors} from "../utils/countErrors";
 import {handleStylesChangeOnValidation} from "../utils/handleStylesChangeOnValidation";
 import FormTextHelper from "../utils/FormTextHelper";
-import LoginWithGoogle from "../login/LoginWithGoogle";
+import AuthorizeWithGoogle from "../login/AuthorizeWithGoogle";
 import {withRouter} from "react-router-dom";
 import {validateSignUpFields} from "./validateSignUpFields";
 import {RestApiUrl} from "../constants/RestApiUrl";
@@ -17,7 +17,6 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 class SignUpTraditionally extends Component {
 
@@ -57,11 +56,6 @@ class SignUpTraditionally extends Component {
             phonePrefix: false
         },
 
-    }
-
-    constructor(props) {
-        super(props);
-        IfUserStillAuthenticated(props);
     }
 
 
@@ -156,8 +150,11 @@ class SignUpTraditionally extends Component {
             <Styles>
                 <Container>
                     <form noValidate>
-                        <Row className="justify-content-center">
-                            <LoginWithGoogle/>
+                        <Row id="google" className="justify-content-center">
+                            <AuthorizeWithGoogle
+                                endPointUrl={RestApiUrl.GOOGLE_LOGIN}
+                                googleButtonText={"Sign in with Google"}
+                            />
                         </Row>
                         <div className="text-danger text-center p-3">
                             {errors.badRequest}
@@ -363,6 +360,7 @@ const Styles = styled.div`
     width: 100%;
     text-align: left;
     justify-content: left;
+    margin: auto;
  }
  
  .col {
@@ -380,6 +378,10 @@ const Styles = styled.div`
     margin-right: auto;
     margin-top:20px;
     margin-bottom: 20px;
+ }
+ 
+ #google.row {
+    margin-top: 30px;
  }
  
  #demoHelp.row {
