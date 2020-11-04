@@ -17,8 +17,7 @@ export const WelcomePage = () => (
             </Row>
             <Row>
                 <p>YouTube Activity Manager is an App that opens
-                    up a new perspective to analyze your YouTube activity
-                    and share your experiences with friends via Facebook</p>
+                    up a new perspective to analyze your YouTube activity</p>
             </Row>
         </Container>
     </Styles>

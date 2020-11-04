@@ -13,7 +13,7 @@ export function LastSynchronizationObject(props) {
         } else {
             return "never";
         }
-    }
+    };
 
     return (
         <Styles>
@@ -29,6 +29,8 @@ export function LastSynchronizationObject(props) {
                 <AuthorizeWithGoogle
                     endPointUrl={RestApiUrl.GOOGLE_AUTHORIZATION}
                     googleButtonText={"Synchronize now!"}
+                    textJustify={"right"}
+                    buttonJustify={"flex-row-reverse"}
                 />
             </Row>
         </Styles>

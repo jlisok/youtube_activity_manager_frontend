@@ -5,9 +5,10 @@ export const RestApiUrl = {
     TRADITIONAL_LOGIN: environmentConfig.API_URL + "/api/v1/login",
     GOOGLE_LOGIN: environmentConfig.API_URL + "/api/v1/login/viaGoogle",
     GOOGLE_AUTHORIZATION: environmentConfig.API_URL + "/api/v1/login/authorize",
+    DEMO_USER_LOGIN: environmentConfig.API_URL + "/api/v1/login/demoUser",
     SUBSCRIBED_CHANNELS: environmentConfig.API_URL + "/api/v1/youtube/channels",
     VIDEOS: environmentConfig.API_URL + "/api/v1/youtube/videos",
     STATS_BY_CATEGORY: environmentConfig.API_URL + "/api/v1/statistics/category",
     STATS_BY_CREATOR: environmentConfig.API_URL + "/api/v1/statistics/creator",
     SUCCESSFUL_SYNCHRONIZATION: environmentConfig.API_URL + "/api/v1/synchronization",
-}
+};

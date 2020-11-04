@@ -17,6 +17,7 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
+import {DemoUserLogin} from "../authentication/DemoUserLogin";
 
 class SignUpTraditionally extends Component {
 
@@ -56,7 +57,7 @@ class SignUpTraditionally extends Component {
             phonePrefix: false
         },
 
-    }
+    };
 
 
     handleChange = event => {
@@ -66,7 +67,7 @@ class SignUpTraditionally extends Component {
         state[name] = value;
         const errors = validateSignUpFields(state);
         this.setState({[name]: value, errors});
-    }
+    };
 
 
     handleBlur = event => {
@@ -75,7 +76,7 @@ class SignUpTraditionally extends Component {
         didBlur[event.target.name] = true;
         const errors = validateSignUpFields(this.state);
         this.setState({errors, didBlur})
-    }
+    };
 
 
     handleClick = e => {
@@ -89,7 +90,7 @@ class SignUpTraditionally extends Component {
         } else {
             this.handleAuthentication(errors, didBlur);
         }
-    }
+    };
 
 
     handleAuthentication = (errors, didBlur) => {
@@ -110,27 +111,8 @@ class SignUpTraditionally extends Component {
                     this.handleRedirectionToDashboard(errors, didBlur);
                 }
             )
-    }
+    };
 
-    /*handleDemoAuthentication = (errors, didBlur) => {
-        axios
-            .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
-            .then(response => {
-                if (response.data !== null) {
-                    handleAuthentication(response.data, true, false);
-                } else {
-                    handleAuthentication(null, false, false);
-                    errors.badRequest = UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR;
-                }
-            })
-            .catch(error => {
-                errors.badRequest = handleErrors(error, UserHttpResponse.REGISTRATION_FAILED_UNEXPECTED_ERROR, UserHttpResponse.UNKNOWN_EVENT);
-            })
-            .finally(() => {
-                    this.handleRedirectionToDashboard(errors, didBlur);
-                }
-            )
-    }*/
 
     handleRedirectionToDashboard = (errors, didBlur) => {
         if (errors.badRequest.length > 0) {
@@ -142,7 +124,7 @@ class SignUpTraditionally extends Component {
         } else {
             this.props.history.push("/dashboard");
         }
-    }
+    };
 
     render() {
         const {errors, didBlur} = this.state;
@@ -154,6 +136,8 @@ class SignUpTraditionally extends Component {
                             <AuthorizeWithGoogle
                                 endPointUrl={RestApiUrl.GOOGLE_LOGIN}
                                 googleButtonText={"Sign in with Google"}
+                                textJustify={"center"}
+                                buttonJustify={"justify-content-center"}
                             />
                         </Row>
                         <div className="text-danger text-center p-3">
@@ -332,21 +316,9 @@ class SignUpTraditionally extends Component {
                             onClick={this.handleClick}
                         >Submit
                         </button>
-
-                        {/*<Row id="demoHelp">
-                            <small id="demoHelp" className="form-text text-danger">
-                                Too many fields to fill? Check out the demo user!
-                            </small>
-                        </Row>
-                        <Row>
-                            <button
-                                id="demo"
-                                type="submit"
-                                className="btn btn-outline-danger"
-                                onClick={this.handleDemoAuthentication}
-                            >Login as demo user
-                            </button>
-                        </Row>*/}
+                        <DemoUserLogin
+                            helperText={"Too many fields to fill? Check out the demo user!"}
+                        />
                     </form>
                 </Container>
             </Styles>

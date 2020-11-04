@@ -15,6 +15,7 @@ import {Labels} from "../constants/Labels";
 import {Time} from "../constants/Time";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
+import {DemoUserLogin} from "../authentication/DemoUserLogin";
 
 
 class LoginTraditionally extends Component {
@@ -34,14 +35,14 @@ class LoginTraditionally extends Component {
             email: false,
             password: false
         },
-    }
+    };
 
 
     handleChange = event => {
         event.preventDefault();
         const {name, value} = event.target;
         this.setState({[name]: value});
-    }
+    };
 
 
     handleValidation = () => {
@@ -50,7 +51,7 @@ class LoginTraditionally extends Component {
         errors.email = !state.email ? Labels.EMPTY_EMAIL : "";
         errors.password = !state.password ? Labels.EMPTY_PASSWORD : "";
         return errors;
-    }
+    };
 
 
     handleClick = e => {
@@ -65,7 +66,7 @@ class LoginTraditionally extends Component {
             errors.submitButton = "";
             this.handleAuthentication(errors, didBlur)
         }
-    }
+    };
 
 
     handleAuthentication = (errors, didBlur) => {
@@ -86,27 +87,7 @@ class LoginTraditionally extends Component {
                     this.handleRedirectionToDashboard(errors, didBlur);
                 }
             )
-    }
-
-    /*handleDemoAuthentication = (errors, didBlur) => {
-        axios
-            .post(RestApiUrl.TRADITIONAL_LOGIN, {email: 'alpaca.lover@gmail.com', password: 'AlpacaLover'})
-            .then(response => {
-                if (response.data !== null) {
-                    handleAuthentication(response.data, true, false);
-                } else {
-                    handleAuthentication(undefined, false, false);
-                    errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
-                }
-            })
-            .catch(error => {
-                errors.badRequest = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
-            })
-            .finally(() => {
-                    this.handleRedirectionToDashboard(errors, didBlur);
-                }
-            )
-    }*/
+    };
 
 
     handleRedirectionToDashboard = (errors, didBlur) => {
@@ -119,13 +100,13 @@ class LoginTraditionally extends Component {
         } else {
             this.props.history.push("/dashboard");
         }
-    }
+    };
 
 
     handleRedirectionToRegistration = e => {
         e.preventDefault();
         this.props.history.push("/signup")
-    }
+    };
 
 
     render() {
@@ -138,6 +119,8 @@ class LoginTraditionally extends Component {
                             <AuthorizeWithGoogle
                                 endPointUrl={RestApiUrl.GOOGLE_LOGIN}
                                 googleButtonText={"Sign in with Google"}
+                                textJustify={"center"}
+                                buttonJustify={"justify-content-center"}
                             />
                         </Row>
                         <div className="text-danger text-center p-3">
@@ -207,21 +190,9 @@ class LoginTraditionally extends Component {
                             >Sign up
                             </button>
                         </Row>
-
-                        {/*<Row id="demoHelp">
-                            <small id="demoHelp" className="form-text text-danger form-text-center">
-                                Don't trust us with your data? No YouTube account?<br/>Check out the demo user!
-                            </small>
-                        </Row>*/}
-                        {/*<Row>
-                            <button
-                                id="demo"
-                                type="submit"
-                                className="btn btn-outline-danger"
-                                onClick={this.handleDemoAuthentication}
-                            >Login as demo user
-                            </button>
-                        </Row>*/}
+                        <DemoUserLogin
+                            helperText={`Don't trust us with your data? No YouTube account? \n Check out the demo user!`}
+                        />
                     </form>
                 </Container>
             </Styles>
@@ -240,15 +211,6 @@ const Styles = styled.div`
  
  #signUpHelp.row {
      justify-content: center;
- }
- 
- #demoHelp.row {
-     justify-content: center;
- }
- 
- #demo.btn  {
-    margin-top: 5px;
-    margin-bottom: 20px;
  }
  
  #vertical-space.row {
@@ -270,6 +232,7 @@ const Styles = styled.div`
     margin-top: 5px;
     margin-bottom: 20px;
  }
+ 
  .form-text-center {
    text-align: center;
  }

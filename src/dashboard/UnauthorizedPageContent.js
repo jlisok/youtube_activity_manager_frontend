@@ -24,6 +24,7 @@ export function UnauthorizedPageContent() {
                     <AuthorizeWithGoogle
                         endPointUrl={RestApiUrl.GOOGLE_AUTHORIZATION}
                         googleButtonText={"Synchronize now!"}
+                        textJustify={"right"}
                     />
                 </Row>
             </Container>
