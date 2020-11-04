@@ -153,6 +153,7 @@ class SignUpTraditionally extends Component {
                         <Row id="google" className="justify-content-center">
                             <AuthorizeWithGoogle
                                 endPointUrl={RestApiUrl.GOOGLE_LOGIN}
+                                googleButtonText={"Sign in with Google"}
                             />
                         </Row>
                         <div className="text-danger text-center p-3">

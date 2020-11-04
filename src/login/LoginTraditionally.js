@@ -137,6 +137,7 @@ class LoginTraditionally extends Component {
                         <Row id="vertical-space">
                             <AuthorizeWithGoogle
                                 endPointUrl={RestApiUrl.GOOGLE_LOGIN}
+                                googleButtonText={"Sign in with Google"}
                             />
                         </Row>
                         <div className="text-danger text-center p-3">

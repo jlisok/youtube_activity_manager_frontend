@@ -95,7 +95,7 @@ function AuthorizeWithGoogle(props) {
                     discoveryDocs={GoogleConstants.DISCOVERY_DOCS}
                     scope={GoogleConstants.SCOPE}
                     accessType={GoogleConstants.ACCESS_TYPE}
-                    buttonText={props.endPointUrl === RestApiUrl.GOOGLE_AUTHORIZATION ? "Synchronize now!" : "Sign in with Google"}
+                    buttonText={props.googleButtonText}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                 />

@@ -23,6 +23,7 @@ export function UnauthorizedPageContent() {
                 <Row id="google" className="d-flex flex-column-reverse">
                     <AuthorizeWithGoogle
                         endPointUrl={RestApiUrl.GOOGLE_AUTHORIZATION}
+                        googleButtonText={"Synchronize now!"}
                     />
                 </Row>
             </Container>

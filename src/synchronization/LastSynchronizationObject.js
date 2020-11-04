@@ -28,6 +28,7 @@ export function LastSynchronizationObject(props) {
             <Row className="justify-content-end">
                 <AuthorizeWithGoogle
                     endPointUrl={RestApiUrl.GOOGLE_AUTHORIZATION}
+                    googleButtonText={"Synchronize now!"}
                 />
             </Row>
         </Styles>
