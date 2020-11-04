@@ -18,6 +18,7 @@ import {handleErrors} from "../axios/handleErrors";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
 import {DemoUserLogin} from "../authentication/DemoUserLogin";
+import {environmentConfig} from "../environmentConfig";
 
 class SignUpTraditionally extends Component {
 
@@ -144,7 +145,7 @@ class SignUpTraditionally extends Component {
                             {errors.badRequest}
                         </div>
                         <Row className="justify-content-center p-1">
-                            <Image src="http://www.icls.com.my/files/editor_files/How%20to%20apply/register.png"
+                            <Image src={environmentConfig.STATIC_RESOURCE_URL + "/register.png"}
                                    width="100"/>
                         </Row>
 
