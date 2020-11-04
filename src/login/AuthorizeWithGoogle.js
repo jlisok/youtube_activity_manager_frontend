@@ -22,7 +22,7 @@ function AuthorizeWithGoogle(props) {
 
     const responseGoogle = (response) => {
         signUp(response);
-    }
+    };
 
     function signUp(res) {
 
@@ -35,7 +35,6 @@ function AuthorizeWithGoogle(props) {
         };
 
         let config;
-
         if (props.endPointUrl === RestApiUrl.GOOGLE_AUTHORIZATION) {
             config = {
                 headers: {
@@ -96,7 +95,7 @@ function AuthorizeWithGoogle(props) {
                     discoveryDocs={GoogleConstants.DISCOVERY_DOCS}
                     scope={GoogleConstants.SCOPE}
                     accessType={GoogleConstants.ACCESS_TYPE}
-                    buttonText="Sign in with Google"
+                    buttonText={props.endPointUrl === RestApiUrl.GOOGLE_AUTHORIZATION ? "Synchronize now!" : "Sign in with Google"}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                 />

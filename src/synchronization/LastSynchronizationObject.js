@@ -22,7 +22,7 @@ export function LastSynchronizationObject(props) {
             </Row>
             <Row>
                 <p id="sync" className="text">
-                    Old data? Synchronize now! <br/>
+                    Old data?<br/>
                 </p>
             </Row>
             <Row className="justify-content-end">
