@@ -27,7 +27,6 @@ function AuthorizeWithGoogle(props) {
     function signUp(res) {
 
         const googleResponse = {
-            email: res.profileObj.email,
             googleIdToken: res.tokenObj.id_token,
             accessToken: res.tokenObj.access_token,
             scopes: res.getGrantedScopes(),
@@ -45,6 +44,7 @@ function AuthorizeWithGoogle(props) {
             config = "";
         }
 
+        let exception;
         axios
             .post(props.endPointUrl, googleResponse, config)
             .then(response => {
@@ -52,21 +52,24 @@ function AuthorizeWithGoogle(props) {
                     JwtDecodingAndAuthentication(response.data);
                 } else {
                     setCredentialsForUnauthenticatedUser();
-                    setBadRequest(UserHttpResponse.AUTHENTICATION_FAILED);
+                    exception = UserHttpResponse.AUTHENTICATION_FAILED;
                 }
             })
             .catch(error => {
-                const exception = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
-                setBadRequest(exception);
+                exception = handleErrors(error, UserHttpResponse.AUTHENTICATION_FAILED, UserHttpResponse.UNKNOWN_EVENT);
             })
             .finally(() => {
-                    handleRedirection();
+                handleRedirection(exception);
                 }
             )
     }
 
-    function handleRedirection() {
-        if (badRequest === undefined) {
+    const handleClick = (event) => {
+        event.preventDefault();
+    };
+
+    function handleRedirection(exception) {
+        if (exception === undefined) {
             if (props.endPointUrl === RestApiUrl.GOOGLE_LOGIN) {
                 history.push("/dashboard");
             } else {
@@ -76,6 +79,7 @@ function AuthorizeWithGoogle(props) {
                 }, Time.TIMEOUT);
             }
         } else {
+            setBadRequest(exception);
             setTimeout(function () {
                 setBadRequest(undefined);
             }, Time.TIMEOUT);
@@ -85,17 +89,19 @@ function AuthorizeWithGoogle(props) {
     return (
         <Styles>
             {badRequest !== undefined ?
-                <div className="text-danger text-right mb-2">
+                <div className={"text-danger text-" + props.textJustify + " mb-2"}>
                     {badRequest}
                 </div> : ""
             }
-            <div className="d-flex flex-row-reverse">
+
+            <div className={"d-flex " + props.buttonJustify}>
                 <GoogleLogin
                     clientId={GoogleConstants.CLIENT_ID}
                     discoveryDocs={GoogleConstants.DISCOVERY_DOCS}
                     scope={GoogleConstants.SCOPE}
                     accessType={GoogleConstants.ACCESS_TYPE}
                     buttonText={props.googleButtonText}
+                    onClick={handleClick}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                 />

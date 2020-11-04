@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {RestApiUrl} from "../constants/RestApiUrl";
-import {StatsTable} from "./StatsTable";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {GroupingVariableStateNames} from "./GroupingVariableStateNames";
 import {JsonSelectVariableNames} from "./JsonSelectVariableNames";
@@ -18,6 +17,8 @@ import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
 import {checkIfUserAuthenticated} from "../authentication/checkIfUserAuthenticated";
+import {checkIfUserAuthorized} from "../authentication/checkIfUserAuthorized";
+import {StatsTableManager} from "./StatsTableManager";
 
 
 class Stats extends Component {
@@ -32,12 +33,13 @@ class Stats extends Component {
             byCategory: "",
             status: "",
         },
-    }
+    };
 
     constructor(props) {
         super(props);
-        checkIfUserAuthenticated(props);
         checkIfTokenValid(props);
+        checkIfUserAuthenticated(props);
+        checkIfUserAuthorized(props);
     }
 
     componentDidMount() {
@@ -49,11 +51,7 @@ class Stats extends Component {
         const state = this.state;
         const {name, value} = event.target;
         state[name] = value;
-        if (state.groupingVariable.length > 0 && state.arrays[state.groupingVariable].length === 0) {
-            this.handleHttpRequest(state);
-        } else {
-            this.setState({state});
-        }
+        this.handleHttpRequest(state);
     };
 
 
@@ -74,7 +72,7 @@ class Stats extends Component {
                     this.setState({state});
                 }
             )
-    }
+    };
 
 
     handleHttpRequest = (state) => {
@@ -95,12 +93,12 @@ class Stats extends Component {
             .finally(() => {
                 this.setState({state});
             })
-    }
+    };
 
 
     retrieveApiEndPointUri = (groupingVariable) => {
         return groupingVariable.includes(GroupingVariableStateNames.BY_CREATOR) ? RestApiUrl.STATS_BY_CREATOR : RestApiUrl.STATS_BY_CATEGORY;
-    }
+    };
 
 
     render() {
@@ -112,7 +110,6 @@ class Stats extends Component {
                     <LastSynchronizationObject
                         state={this.state}
                     />
-
                     <Row>
                         <p id="info" className="text-danger">
                             {exception}
@@ -162,7 +159,7 @@ class Stats extends Component {
                     </Row>
                     <Row>
                         {selectVariable.length > 0 && groupingVariable.length > 0 ?
-                            <StatsTable
+                            <StatsTableManager
                                 state={this.state}/> : ""}
                     </Row>
 

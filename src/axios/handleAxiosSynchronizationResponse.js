@@ -3,9 +3,9 @@ import moment from "moment";
 
 export const handleAxiosSynchronizationResponse = (response, state) => {
     if (response.data !== null) {
-        state.lastSynchronization = moment(response.data);
+        response.data.length > 0 ? state.lastSynchronization = moment(response.data) : state.lastSynchronization = response.data;
     } else {
         state["exception"] = UserHttpResponse.UNKNOWN_EVENT;
     }
     return state;
-}
+};

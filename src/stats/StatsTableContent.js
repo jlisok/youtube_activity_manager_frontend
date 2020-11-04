@@ -6,7 +6,7 @@ import {TableColumnNames} from "./TableColumnNames";
 import {GroupingVariableStateNames} from "./GroupingVariableStateNames";
 import {JsonGroupingVariableNames} from "./JsonGroupingVariableNames";
 
-export const StatsTable = (props) => {
+export const StatsTableContent = (props) => {
 
     return (
         <Styles>

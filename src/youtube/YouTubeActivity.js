@@ -16,6 +16,8 @@ import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
 import {checkIfUserAuthenticated} from "../authentication/checkIfUserAuthenticated";
+import {SynchronizationStatus} from "../axios/SynchronizationStatus";
+import {checkIfUserAuthorized} from "../authentication/checkIfUserAuthorized";
 
 class YouTubeActivity extends Component {
 
@@ -30,18 +32,19 @@ class YouTubeActivity extends Component {
             status: "",
             statusCreatedAt: ""
         },
-    }
+    };
 
 
     constructor(props) {
         super(props);
         checkIfUserAuthenticated(props);
         checkIfTokenValid(props);
-    }
+        checkIfUserAuthorized(props);
+    };
 
     componentDidMount() {
         this.getSynchronizationStatus(this.state);
-    }
+    };
 
 
     handleChange = event => {
@@ -49,11 +52,7 @@ class YouTubeActivity extends Component {
         const state = this.state;
         const {name, value} = event.target;
         state[name] = value;
-        if (value.length > 0 && state.arrays[value.toLowerCase()].length === 0) {
-            this.handleHttpRequest(state);
-        } else {
-            this.setState({state});
-        }
+        this.handleHttpRequest(state);
     };
 
 
@@ -74,7 +73,7 @@ class YouTubeActivity extends Component {
                     this.setState({state});
                 }
             )
-    }
+    };
 
 
     handleHttpRequest = (state) => {
@@ -97,12 +96,12 @@ class YouTubeActivity extends Component {
                     this.setState({state});
                 }
             )
-    }
+    };
 
 
     retrieveApiEndPointUri = (stateValue) => {
         return stateValue.includes("channels") ? RestApiUrl.SUBSCRIBED_CHANNELS : RestApiUrl.VIDEOS;
-    }
+    };
 
 
     render() {
@@ -135,7 +134,7 @@ class YouTubeActivity extends Component {
                         </select>
                     </Row>
                     <Row>
-                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_STILL_IN_PROGRESS : ""}
+                        {this.state.arrays.status === SynchronizationStatus.IN_PROGRESS ? Labels.CURRENT_SYNC_STILL_IN_PROGRESS : ""}
                     </Row>
                     <Row>
                         {activityType.length > 0 ? <YouTubeActivityTable
