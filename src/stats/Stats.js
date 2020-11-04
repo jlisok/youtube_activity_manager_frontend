@@ -16,6 +16,7 @@ import {LastSynchronizationObject} from "../synchronization/LastSynchronizationO
 import {handleAxiosSynchronizationResponse} from "../axios/handleAxiosSynchronizationResponse";
 import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
+import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 
 class Stats extends Component {
@@ -34,10 +35,9 @@ class Stats extends Component {
     }
 
 
-    componentDidMount() {
-        if (localStorage.getItem(LocalStorageItemNames.AUTHENTICATED) !== "true") {
-            this.props.history.push("/")
-        }
+    constructor(props) {
+        super(props);
+        IfUserStillAuthenticated(props);
         this.handleGettingSynchronizationStatus(this.state);
     }
 

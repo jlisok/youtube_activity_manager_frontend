@@ -1,5 +1,6 @@
 export const LocalStorageItemNames = {
     AUTHENTICATED: "authenticated",
-    AUTHORIZED: "authorized",
-    TOKEN: "token"
+    IF_EVER_AUTHORIZED: "authorized",
+    TOKEN: "token",
+    TOKEN_EXPIRATION_TIME: "token_expiration",
 }

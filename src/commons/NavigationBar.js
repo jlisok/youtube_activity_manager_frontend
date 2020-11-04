@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {Nav, Navbar} from 'react-bootstrap';
 import styled from 'styled-components';
-import {handleAuthentication} from "../authentication/handleAuthentication";
 import {LocalStorageItemNames} from "./LocalStorageItemNames";
+import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
 
 export let NavigationBar = () => {
 
     let [ifAuthenticated, setIfAuthenticated] = useState(localStorage.getItem(LocalStorageItemNames.AUTHENTICATED));
 
     let handleLogOut = () => {
-        handleAuthentication(null, "false", "false");
+        setCredentialsForUnauthenticatedUser();
         setIfAuthenticated(localStorage.getItem(LocalStorageItemNames.AUTHENTICATED))
     }
 
@@ -31,14 +31,14 @@ export let NavigationBar = () => {
                             <Nav.Link id="RouterNavLink" href="/about">About</Nav.Link>
                         </Nav.Item>
 
-                        {ifAuthenticated === "false" ?
+                        {ifAuthenticated === "true" ?
                             <Nav.Item className="RouterNavItem">
-                                <Nav.Link id="RouterNavLink" href="/">Log in</Nav.Link>
+                                <Nav.Link id="RouterNavLink" href="/"
+                                          onClick={handleLogOut}
+                                >Log out</Nav.Link>
                             </Nav.Item>
                             : <Nav.Item className="RouterNavItem">
-                                <Nav.Link id="RouterNavLink" href="/"
-                                    onClick={handleLogOut}
-                                >Log out</Nav.Link>
+                                <Nav.Link id="RouterNavLink" href="/">Log in</Nav.Link>
                             </Nav.Item>
                         }
                     </Nav>

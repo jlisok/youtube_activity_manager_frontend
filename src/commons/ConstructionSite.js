@@ -3,9 +3,16 @@ import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {NavigationBar} from "./NavigationBar";
 import {environmentConfig} from "../environmentConfig";
+import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 
 class ConstructionSite extends Component {
+
+    constructor(props) {
+        super(props);
+        IfUserStillAuthenticated(props);
+    }
+
     render() {
         return (
             <Styles>

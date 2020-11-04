@@ -10,10 +10,12 @@ import {handleStylesChangeOnValidation} from "../utils/handleStylesChangeOnValid
 import {withRouter} from "react-router-dom";
 import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
-import {handleAuthentication} from "../authentication/handleAuthentication";
 import {RestApiUrl} from "../constants/RestApiUrl";
 import {Labels} from "../constants/Labels";
 import {Time} from "../constants/Time";
+import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
+import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
+import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
 
 
 class LoginTraditionally extends Component {
@@ -33,6 +35,12 @@ class LoginTraditionally extends Component {
             email: false,
             password: false
         },
+    }
+
+
+    constructor(props) {
+        super(props);
+        IfUserStillAuthenticated(props);
     }
 
 
@@ -72,9 +80,9 @@ class LoginTraditionally extends Component {
             .post(RestApiUrl.TRADITIONAL_LOGIN, this.state)
             .then(response => {
                 if (response.data !== null) {
-                    handleAuthentication(response.data, true, false);
+                    JwtDecodingAndAuthentication(response.data);
                 } else {
-                    handleAuthentication(undefined, false, false);
+                    setCredentialsForUnauthenticatedUser();
                     errors.badRequest = UserHttpResponse.AUTHENTICATION_FAILED;
                 }
             })
@@ -137,9 +145,9 @@ class LoginTraditionally extends Component {
                             <LoginWithGoogle/>
                         </Row>
                         <Row>
-                        <div className="text-danger">
-                            {errors.badRequest}
-                        </div>
+                            <div className="text-danger">
+                                {errors.badRequest}
+                            </div>
                         </Row>
                         <Row id="vertical-space">
                             <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
