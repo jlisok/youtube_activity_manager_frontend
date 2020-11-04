@@ -16,7 +16,7 @@ export const UserHttpResponse = {
     AUTHENTICATION_FAILED: "Ops, something went wrong with your authentication, try again.",
 
     AUTHORIZATION_FAILED_USER_NOT_FOUND: "Authorization failed. Your account doesn't exist.",
-    AUTHORIZATION_FAILED_GOOGLE_ID_INCONSISTENT_WITH_DATABASE: "Provided google account do not match the one linked previously.",
+    AUTHORIZATION_FAILED_GOOGLE_ID_INCONSISTENT_WITH_DATABASE: "Provided google account does not match the one linked previously.",
 
     UNKNOWN_EVENT: "Ops, something went wrong with our application, please try again."
-}
+};

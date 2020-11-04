@@ -16,6 +16,7 @@ import {Time} from "../constants/Time";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
 import {DemoUserLogin} from "../authentication/DemoUserLogin";
+import {environmentConfig} from "../environmentConfig";
 
 
 class LoginTraditionally extends Component {
@@ -127,7 +128,7 @@ class LoginTraditionally extends Component {
                             {errors.badRequest}
                         </div>
                         <Row id="vertical-space">
-                            <Image src="https://image.flaticon.com/icons/svg/295/295128.svg" width="100"/>
+                            <Image src={environmentConfig.STATIC_RESOURCE_URL + "/login.svg"} width="100"/>
                         </Row>
 
                         <Row className="col-md-auto mb-1">
