@@ -3,14 +3,16 @@ import {Col, Container, Image, Row} from "react-bootstrap";
 import styled from "styled-components";
 import {NavigationBar} from "./NavigationBar";
 import {environmentConfig} from "../environmentConfig";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
+import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
+import {checkIfUserAuthenticated} from "../authentication/checkIfUserAuthenticated";
 
 
 class ConstructionSite extends Component {
 
     constructor(props) {
         super(props);
-        IfUserStillAuthenticated(props);
+        checkIfUserAuthenticated(props);
+        checkIfTokenValid(props);
     }
 
     render() {

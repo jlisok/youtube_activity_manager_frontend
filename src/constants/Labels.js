@@ -3,5 +3,6 @@ export const Labels = {
     EMPTY_EMAIL: "Email cannot be empty. Please enter correct email address.",
     EMPTY_PASSWORD: "Password cannot be empty. Please enter correct password.",
     EMPTY_YOUTUBE_LIST: "Nothing to see here, your list is empty. Move along. Uhm, do you even use Youtube?",
-    CURRENT_SYNC_IN_PROGRESS: "Your latest synchronization is pending. Please refresh in just a moment to see up to date data.",
+    CURRENT_SYNC_STILL_IN_PROGRESS: "Your latest synchronization is still pending. Please refresh in just a moment to see up to date data.",
+    SYNC_TRIGGERED: "Synchronization in progress, it may take a while."
 }

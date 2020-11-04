@@ -16,7 +16,8 @@ import {LastSynchronizationObject} from "../synchronization/LastSynchronizationO
 import {handleAxiosSynchronizationResponse} from "../axios/handleAxiosSynchronizationResponse";
 import {Labels} from "../constants/Labels";
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
-import {IfUserStillAuthenticated} from "../authentication/IfUserStillAuthenticated";
+import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
+import {checkIfUserAuthenticated} from "../authentication/checkIfUserAuthenticated";
 
 
 class Stats extends Component {
@@ -30,15 +31,17 @@ class Stats extends Component {
             byCreator: "",
             byCategory: "",
             status: "",
-            statusCreatedAt: ""
         },
     }
 
-
     constructor(props) {
         super(props);
-        IfUserStillAuthenticated(props);
-        this.handleGettingSynchronizationStatus(this.state);
+        checkIfUserAuthenticated(props);
+        checkIfTokenValid(props);
+    }
+
+    componentDidMount() {
+        this.getSynchronizationStatus(this.state);
     }
 
     handleChange = event => {
@@ -54,7 +57,7 @@ class Stats extends Component {
     };
 
 
-    handleGettingSynchronizationStatus = (state) => {
+    getSynchronizationStatus = (state) => {
         axios
             .get(RestApiUrl.SUCCESSFUL_SYNCHRONIZATION, {
                 headers: {
@@ -109,6 +112,7 @@ class Stats extends Component {
                     <LastSynchronizationObject
                         state={this.state}
                     />
+
                     <Row>
                         <p id="info" className="text-danger">
                             {exception}
@@ -154,7 +158,7 @@ class Stats extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_IN_PROGRESS : ""}
+                        {this.state.arrays.status === "IN_PROGRESS" ? Labels.CURRENT_SYNC_STILL_IN_PROGRESS : ""}
                     </Row>
                     <Row>
                         {selectVariable.length > 0 && groupingVariable.length > 0 ?
@@ -175,9 +179,9 @@ const Styles = styled.div`
     justify-content: center;
     text-align: center;
     margin: auto;
-    line-height: 40px;
 }
  
+  
 .text {
     font-weight: bold;
     font-size: 25px;

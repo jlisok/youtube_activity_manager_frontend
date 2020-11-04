@@ -1,9 +1,8 @@
 import {LocalStorageItemNames} from "../commons/LocalStorageItemNames";
 import moment from "moment";
-import React from "react";
 import {setCredentialsForUnauthenticatedUser} from "./setCredentialsForUnauthenticatedUser";
 
-export function IfUserStillAuthenticated(props) {
+export function checkIfTokenValid(props) {
 
     if (localStorage.getItem(LocalStorageItemNames.TOKEN_EXPIRATION_TIME).length > 0) {
         const jwtExpiration = moment(localStorage.getItem(LocalStorageItemNames.TOKEN_EXPIRATION_TIME));
