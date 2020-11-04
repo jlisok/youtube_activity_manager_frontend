@@ -101,7 +101,7 @@ function AuthorizeWithGoogle(props) {
                     onFailure={responseGoogle}
                 />
             </div>
-            {syncInProgress !== undefined && badRequest.length === 0 ?
+            {syncInProgress !== undefined && badRequest === undefined ?
                 <div id="sync" className="text">
                     {syncInProgress}
                 </div> : ""
