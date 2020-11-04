@@ -17,7 +17,6 @@ import {UserHttpResponse} from "../constants/UserHttpResponse";
 import {handleErrors} from "../axios/handleErrors";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
-import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
 
 class SignUpTraditionally extends Component {
 
@@ -57,11 +56,6 @@ class SignUpTraditionally extends Component {
             phonePrefix: false
         },
 
-    }
-
-    constructor(props) {
-        super(props);
-        checkIfTokenValid(props);
     }
 
 

@@ -15,7 +15,6 @@ import {Labels} from "../constants/Labels";
 import {Time} from "../constants/Time";
 import {JwtDecodingAndAuthentication} from "../axios/JwtDecodingAndAuthentication";
 import {setCredentialsForUnauthenticatedUser} from "../authentication/setCredentialsForUnauthenticatedUser";
-import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
 
 
 class LoginTraditionally extends Component {
@@ -35,12 +34,6 @@ class LoginTraditionally extends Component {
             email: false,
             password: false
         },
-    }
-
-
-    constructor(props) {
-        super(props);
-        checkIfTokenValid(props);
     }
 
 

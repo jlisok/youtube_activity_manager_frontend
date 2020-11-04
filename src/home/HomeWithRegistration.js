@@ -4,9 +4,14 @@ import {WelcomePage} from "../commons/WelcomePage";
 import SignUpTraditionally from "../signup-traditionally/SignUpTraditionally";
 import styled from "styled-components";
 import {NavigationBar} from "../commons/NavigationBar";
+import {checkIfTokenValid} from "../authentication/CheckIfTokenValid";
 
 class HomeWithRegistration extends Component {
 
+    constructor(props) {
+        super(props);
+        checkIfTokenValid(props);
+    }
 
     render() {
         return (
