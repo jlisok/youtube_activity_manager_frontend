@@ -4,8 +4,10 @@ import {setCredentialsForUnauthenticatedUser} from "./setCredentialsForUnauthent
 
 export function checkIfTokenValid(props) {
 
-    if (localStorage.getItem(LocalStorageItemNames.TOKEN_EXPIRATION_TIME).length > 0) {
-        const jwtExpiration = moment(localStorage.getItem(LocalStorageItemNames.TOKEN_EXPIRATION_TIME));
+    const token = localStorage.getItem(LocalStorageItemNames.TOKEN_EXPIRATION_TIME);
+
+    if (token) {
+        const jwtExpiration = moment(token);
         if (jwtExpiration.diff(moment.now()) < 0) {
             setCredentialsForUnauthenticatedUser();
             props.history.push("/")
